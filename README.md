@@ -1,4 +1,3 @@
-<img src="https://raw.githubusercontent.com/yskoh/2014-03-YNCA/master/ynca.png" height="200" width="200" >
 # YNCA : You Will Never Code Alone
 
 ## Ground Rules
@@ -12,3 +11,5 @@
 * 월요일 19:00 ~ 21:00
 * 수요일 10:00 ~ 14:00
 * 금요일 18:00 ~ 20:00
+
+![alt tag](https://raw.githubusercontent.com/yskoh/2014-03-YNCA/master/ynca.png)
