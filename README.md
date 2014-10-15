@@ -1,4 +1,4 @@
-![alt tag](https://raw.githubusercontent.com/yskoh/2014-03-YNCA/master/ynca.png)
+![alt tag](https://raw.githubusercontent.com/yskoh/2014-03-YNCA/master/ynca.png=100x100)
 # YNCA : You Will Never Code Alone
 
 ## Ground Rules
