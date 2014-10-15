@@ -1,3 +1,4 @@
+![alt tag](https://raw.github.com/yskoh/2014-03-YNCA/blob/master/ynca.png)
 # YNCA : You Will Never Code Alone
 
 ## Ground Rules
