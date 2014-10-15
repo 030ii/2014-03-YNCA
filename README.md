@@ -1,4 +1,4 @@
-### YNCA : You Will Never Code Alone
+## YNCA : You Will Never Code Alone
 
-## Ground Rules
+### Ground Rules
 
