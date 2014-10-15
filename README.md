@@ -12,5 +12,5 @@
 * 수요일 10:00 ~ 14:00
 * 금요일 18:00 ~ 20:00
 
-<img src = "https://raw.githubusercontent.com/yskoh/2014-03-YNCA/master/ynca.png" align="center"> 
+<img src = "https://raw.githubusercontent.com/yskoh/2014-03-YNCA/master/ynca.png"> 
 
