@@ -32,5 +32,10 @@
 * 4주차 - socket.io [하채영]
 * 5주차 - mysql + node.js [고예슬]
 
+
+## 참고
+* 필요한 만큼만 공부하고, 바로 적용한다.
+* 최소 기능부터 구현하고, 필요가 생길때 다른 기능을 추가한다.
+
 <img src = "https://raw.githubusercontent.com/yskoh/2014-03-YNCA/master/ynca.png"> 
 
