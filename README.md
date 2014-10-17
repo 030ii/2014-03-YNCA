@@ -1,6 +1,6 @@
 # YNCA : You Will Never Code Alone
 
-## 기획서 : [YNCA기획서.pdf](https://github.com/yskoh/2014-03-YNCA/blob/master/%EA%B8%B0%ED%9A%8D%EC%84%9C/YNCA%EA%B8%B0%ED%9A%8D%EC%84%9C.pdf?raw=true)
+### 기획서 링크 : [YNCA기획서.pdf](https://github.com/yskoh/2014-03-YNCA/blob/master/%EA%B8%B0%ED%9A%8D%EC%84%9C/YNCA%EA%B8%B0%ED%9A%8D%EC%84%9C.pdf?raw=true)
 
 ## Ground Rules
 * 지속적으로 실용적인 것을 만들자
