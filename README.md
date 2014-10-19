@@ -30,7 +30,7 @@
 
 ### 스터디 진행
 * 2주차 - node.js [김우진]
- * [스터디자료] (https://github.com/yskoh/2014-03-YNCA/blob/master/study/node.js/node.js%20%EC%8A%A4%ED%84%B0%EB%94%94.pdf?raw=true)
+ * [스터디자료] (http://www.slideshare.net/WooGenius/nodejs-40451587)
 * 3주차 - express [류우림]
 * 4주차 - socket.io [하채영]
 * 5주차 - mysql + node.js [고예슬]
