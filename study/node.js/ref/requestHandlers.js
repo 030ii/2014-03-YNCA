@@ -27,7 +27,7 @@ function hello(response, postData) {
   console.log("Request handler 'hello' was called.");
 
     response.writeHead(200, {"Content-Type": "text/html"});
-    response.write("안녕하세요. "+   querystring.parse(postData).text + "님"); 
+    response.write("안녕하세요. "+  querystring.parse(postData).text + "님"); 
     console.log(querystring.parse(postData));
     response.end();
 }
