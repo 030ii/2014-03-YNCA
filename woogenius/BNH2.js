@@ -1,5 +1,7 @@
 var BNH2 = {
 	round : 1,
+	prevDraw : 0,
+	drawRound : 0,
 	TOTAL_ROUND : 9,
 	INIT_POINT : 99,
 	INIT_SCORE : 0,
@@ -8,15 +10,29 @@ var BNH2 = {
 	start : function (method, totalRound, initPoint) {
 		this.TOTAL_ROUND = totalRound || 9;
 		this.INIT_POINT = initPoint || 99;
+		this.progress = 0;
 		this.initialize();
 
 		this.method = new method();
 		this.method.doSomething(this.progress);
 		this.progress ++;
 	},
+	startDrawGame : function () {
+		this.TOTAL_ROUND = 3;
+		this.INIT_POINT = 33;
+
+		this.initialize(this.player1.id, this.player2.id);
+
+		this.setFirstPlayer();
+		
+		this.method.doSomething(6);
+		this.progress = 3;
+	},
 	// 초기화
 	initialize : function (player1Id, player2Id) {
 		this.round = 1;
+		this.prevDraw = 0;
+		this.drawRound = 0;
 		this.player1 = new this.generatePlayer(player1Id);
 		this.player2 = new this.generatePlayer(player2Id);
 
@@ -93,12 +109,16 @@ var BNH2 = {
 		if (firstPlayerPoint < lastPlayerPoint) {
 			this.winner = this.firstPlayer.otherPlayer;
 			this.winner.score++;
+			this.prevDraw = 0;
 		} else if (firstPlayerPoint > lastPlayerPoint) {
 			this.winner = this.firstPlayer;
 			this.winner.score++;
+			this.prevDraw = 0;
 		// 비기면 후공이 선공이 됨.
 		} else {
 			this.winner = this.firstPlayer.otherPlayer;
+			this.prevDraw = 1;
+			this.drawRound ++;
 		}
 
 		// 사용포인트 초기화
@@ -107,7 +127,7 @@ var BNH2 = {
 	},
 	// 게임이 끝났으면 위너를 넘기고, 비겼으면 "Draw"를, 안끝났으면 null을 넘김.
 	isOver : function () {
-		var winScore = this.TOTAL_ROUND/2 + 0.5;
+		var winScore = parseInt((this.TOTAL_ROUND - this.drawRound)/2) + 1;
 		if (this.player1.score == winScore) {
 			return this.player1;
 		} else if (this.player2.score == winScore) {
@@ -115,10 +135,11 @@ var BNH2 = {
 		} else if (this.round == this.TOTAL_ROUND) {
 			if (this.player1.score > this.player2.score) {
 				return this.player1;
-			} else{
+			} else if (this.player1.score < this.player2.score) {
 				return this.player2;
+			} else {
+				return "Draw";
 			}
-			return "Draw";
 		}
 
 		return null;
@@ -129,10 +150,10 @@ var BNH2 = {
 	// 				3 = 선공
 	// 				4 = 후공
 	// 				5 = 게임 끝
+	//				6 = 비김
 	progress : 0,
 	inputSomething : function () {
 		var content = this.method.getInputContent();
-		var playerInfo;
 
 		switch (this.progress) {
 		    case 1:
@@ -142,21 +163,14 @@ var BNH2 = {
 		        break;
 		    case 2:
 		    	this.inputPlayer2Id(content);
-		    	playerInfo = this.getPlayerInfomation(this.firstPlayer.otherPlayer);
-		    	this.method.doSomething(this.progress, playerInfo);
+		    	this.method.doSomething(this.progress);
 		    	this.progress ++;
 		        break;
 		    case 3:
 		    	this.proceedRound(content);
-		    	playerInfo = this.getPlayerInfomation(this.firstPlayer);
-				this.method.doSomething(this.progress, playerInfo);
-		    	this.progress ++;
 		        break;
 		    case 4:
 		    	this.proceedRound(content);
-		    	playerInfo = this.getPlayerInfomation(this.firstPlayer);
-				this.method.doSomething(this.progress, playerInfo);
-		    	this.progress --;
 		        break;
 		}
 	},
@@ -170,21 +184,41 @@ var BNH2 = {
 	proceedRound : function (content) {
 		// 선공
 		if (this.progress == 3) {
-			this.inputPoint(this.firstPlayer, content);
+			if (this.firstPlayer.point - content < 0) {
+				this.method.retry();
+			} else{
+				this.inputPoint(this.firstPlayer, content);
+				this.method.doSomething(this.progress);
+				this.progress ++;
+			};
 		// 후공
 		} else if (this.progress == 4) {
-			this.inputPoint(this.firstPlayer.otherPlayer, content);
-			this.setWinner();
+			if (this.firstPlayer.otherPlayer.point - content < 0) {
+				this.method.retry();
+			} else{
+				this.inputPoint(this.firstPlayer.otherPlayer, content);
+				this.setWinner();
 
-			// 게임이 안 끝났으면
-			if (!this.isOver()) {
-				this.round ++;
-				this.setFirstPlayer();
-			// 게임이 비기거나 끝났으면
-			} else {
-				// 비기는거 아직 처리안함
-				this.progress ++;
-				this.lastWinner = this.isOver();
+				// 게임이 안 끝났으면
+				if (!this.isOver()) {
+					this.round ++;
+					this.setFirstPlayer();
+					this.method.doSomething(this.progress);
+					this.progress --;
+				// 게임이 비기거나 끝났으면
+				} else {
+					// 비기면
+					if (this.isOver() == "Draw") {
+						this.method.draw();
+						this.startDrawGame();
+					// 승부가 나면
+					} else{
+						this.progress ++;
+						this.lastWinner = this.isOver();
+						this.method.doSomething(this.progress);
+					};
+				};
+
 			};
 		}
 	}

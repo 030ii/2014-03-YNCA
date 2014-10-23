@@ -5,8 +5,9 @@ BNH2.consoleGame = function () {
 	// 				3 = 선공
 	// 				4 = 후공
 	// 				5 = 게임 끝
+	//				6 = 비김
 	// 입력 후 콘솔창에 출력하는 함수
-	this.doSomething = function (progress, info) {
+	this.doSomething = function (progress) {
 		switch (progress) {
 		    case 0:
 		    	start();
@@ -15,17 +16,20 @@ BNH2.consoleGame = function () {
 		    	inputPlayer2Id();
 		        break;
 		    case 2:
-		    	firstStrike(info);
+		    	firstStrike();
 		        break;
 		    case 3:
-		    	lastStrike(info);
+		    	lastStrike();
 		        break;
 		    case 4:
 		    	printWinner();
-		    	firstStrike(info);
+		    	firstStrike();
 		        break;
 		    case 5:
 		    	gameOver();
+		        break;
+		    case 6:
+		    	firstStrike();
 		        break;
 		}
 	}
@@ -37,6 +41,14 @@ BNH2.consoleGame = function () {
 		return content;
 	}
 
+	this.retry = function () {
+		console.log("적절하지 않은 입력입니다. 다시입력하세요.");
+	}
+
+	this.draw = function () {
+		console.log("%c비겼습니다. 게임을 다시 시작합니다.", 'background: red; color: white');
+	}
+
 	var start = function () {
 		console.log("흑과백2 게임을 시작합니다.");
 		console.log("Player 1 ID를 입력하세요.");
@@ -46,29 +58,38 @@ BNH2.consoleGame = function () {
 		console.log("Player 2 ID를 입력하세요.");
 	}
 
-	var firstStrike = function (info) {
+	var firstStrike = function () {
 		var fp = BNH2.firstPlayer;
 		var lp = BNH2.firstPlayer.otherPlayer;
-		console.log("%c" + "스코어 : " + BNH2.player1.score + " : " + BNH2.player2.score , 'background: #222; color: #bada55');
+		var info = BNH2.getPlayerInfomation(lp);
+		console.log("%c" +BNH2.round+ "라운드" , 'background: blue; color: white');
+		console.log("%c" + "스코어 " + BNH2.player1.score + " : " + BNH2.player2.score , 'background: #222; color: #bada55');
 		console.log("선공 : " + fp.id + " " + "후공 : " + lp.id);
-		console.log("상대방 점수범위 : " + getPointRange(info.pointRange));
+		console.log("%c상대방 점수범위 : " + getPointRange(info.pointRange), 'color: blue');
 		console.log(fp.id + " 선공입니다. 포인트를 입력하세요. (남은포인트 : " + fp.point + ")");
 	}
 
 	var printWinner = function () {
-		console.log("%c" + BNH2.winner.id + " 승리!", 'background: #222; color: #bada55');
+		if (BNH2.prevDraw) {
+			console.log("%c비김!", 'background: #222; color: #bada55');
+		} else{
+			console.log("%c" + BNH2.winner.id + " 승리!", 'background: #222; color: #bada55');
+		};
 	}
 
-	var lastStrike = function (info) {
+	var lastStrike = function () {
+		var fp = BNH2.firstPlayer;
 		var lp = BNH2.firstPlayer.otherPlayer;
-		console.log("상대방 점수범위 : " + getPointRange(info.pointRange));
-		console.log("상대방 색깔 : " + info.color);
+		var info = BNH2.getPlayerInfomation(fp);
+		console.log("%c상대방 점수범위 : " + getPointRange(info.pointRange), 'color: blue');
+		console.log("%c상대방 색깔 : " + info.color, 'color: blue');
 		console.log(lp.id + " 후공입니다. 포인트를 입력하세요. (남은포인트 : " + lp.point + ")");
 	}
 
 	var gameOver = function () {
-		console.log("게임 끝");
-		console.log("승자는 " + BNH2.lastWinner.id + "입니다.");
+		console.log("%c게임 끝", 'background: red; color: white');
+		console.log("%c" + "스코어 " + BNH2.player1.score + " : " + BNH2.player2.score , 'background: #222; color: #bada55');
+		console.log("%c승자는 " + BNH2.lastWinner.id + "입니다.", 'background: red; color: white');
 	}
 
 	var getPointRange = function (num) {

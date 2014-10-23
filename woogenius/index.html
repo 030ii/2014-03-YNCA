@@ -5,9 +5,18 @@
 </head>
 <body>
 	<button onclick="BNH2.start(BNH2.consoleGame)">콘솔게임 시작</button>
-	<input type="text" id="inputField">
-	<button onclick="BNH2.inputSomething()">입력</button>
+	<input type="text" id="inputField" onkeypress="searchKeyPress(event)">
+	<button id="input" onclick="BNH2.inputSomething()">입력</button>
 	<script type="text/javascript" src="./BNH2.js"></script>
 	<script type="text/javascript" src="./BNH2.console.js"></script>
+	<script type="text/javascript">
+		function searchKeyPress(e) {
+	        // look for window.event in case event isn't passed in
+	        if (typeof e == 'undefined' && window.event) { e = window.event; }
+	        if (e.keyCode == 13) {
+	            document.getElementById('input').click();
+	        }
+	    }
+	</script>
 </body>
 </html>
