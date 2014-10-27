@@ -66,7 +66,7 @@ var BNH2 = {
 		}
 	},
 	inputPoint : function (player, point) {
-		player.usingPoint = point;
+		player.usingPoint = parseInt(point);
 		player.point -= point;
 	},
 	// 플레이어의 점수 정보를 넘김 	
