@@ -66,7 +66,7 @@ BNH2.consoleGame = function () {
 		console.log("%c" + "스코어 " + BNH2.player1.score + " : " + BNH2.player2.score , 'background: #222; color: #bada55');
 		console.log("선공 : " + fp.id + " " + "후공 : " + lp.id);
 		console.log("%c상대방 점수범위 : " + getPointRange(info.pointRange), 'color: blue');
-		console.log(fp.id + " 선공입니다. 포인트를 입력하세요. (남은포인트 : " + fp.point + ")");
+		console.log(fp.id + " 선공입니다. 포인트를 입력하세요.");
 	}
 
 	var printWinner = function () {
@@ -83,7 +83,7 @@ BNH2.consoleGame = function () {
 		var info = BNH2.getPlayerInfomation(fp);
 		console.log("%c상대방 점수범위 : " + getPointRange(info.pointRange), 'color: blue');
 		console.log("%c상대방 색깔 : " + info.color, 'color: blue');
-		console.log(lp.id + " 후공입니다. 포인트를 입력하세요. (남은포인트 : " + lp.point + ")");
+		console.log(lp.id + " 후공입니다. 포인트를 입력하세요.");
 	}
 
 	var gameOver = function () {
