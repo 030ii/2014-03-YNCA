@@ -73,9 +73,8 @@ var BNH2 = {
 	getPlayerInfomation : function (player) {
 		var info = {};
 		// 제시한 포인트가 있을때 흑, 백 정보를 포함해서 리턴
-		if (player.usingPoint) {
+		if (player.usingPoint===0 || player.usingPoint) {
 			info.color = this.getBlackOrWhite(player.usingPoint);
-			debugger;
 		}
 
 		info.pointRange = this.getPointRange(player.point);
