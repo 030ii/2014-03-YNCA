@@ -17,6 +17,78 @@
 	            document.getElementById('input').click();
 	        }
 	    }
+	    
+	    		function EventTarget() {
+			//this.handlers = {};
+			//this.something();
+		}
+
+		EventTarget.prototype = {
+			constructor: EventTarget,
+			init : function(){
+				this.handlers = [];
+				this.something();
+			},
+			something:function(){},
+			addHandler: function(type, handler) {
+				if (typeof this.handlers[type] == "undefined") {
+					this.handlers[type] = [];
+				}
+				this.handlers[type].push(handler);
+			},
+			fire: function(event) {
+				if (!event.target) {
+					event.target = this;
+				}
+				if (this.handlers[event.type] instanceof Array) {
+					var handlers = this.handlers[event.type];
+					for (var i=0, len=handlers.length; i < len; i++) {
+						handlers[i](event);
+					}
+				}
+			},
+			removeHandler: function(type, handler) {
+				if (this.handlers[type] instanceof Array) {
+					var handlers = this.handlers[type];
+					for (var i=0, len=handlers.length; i < len; i++) {
+						if (handlers[i] === handler) {
+							break;
+						}
+					}
+					handlers.splice(i, 1);
+				}
+			}
+		};
+
+		function handleMessage(event) {
+			console.log(event.target.name + " says : " + event.message);
+		}
+
+		function Person(name, age) {
+			//this.eventTarget = new EventTarget();
+			this.name = name;
+			this.age = age;
+			this.init();
+		}
+/*
+		Person.prototype.fire = function(eventName){
+			this.eventTarget.fire(eventName);
+		}
+*/
+
+		Person.eventTarget.fire()
+
+		function inheritPrototype(subType, superType) {
+			var prototype = Object(superType.prototype);
+			prototype.constructor = subType;
+			subType.prototype = prototype;
+		}
+		
+		inheritPrototype(Person, EventTarget);
+
+		Person.prototype.say = function(message) {
+			this.fire("message",{"msg":"some"});//{type:"message", message: message});
+		}
 	</script>
 </body>
 </html>
