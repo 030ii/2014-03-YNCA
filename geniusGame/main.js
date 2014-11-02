@@ -1,4 +1,4 @@
-document.addEventListener("onload", function(){
+document.getElementById("startbutton").addEventListener("onclick", function(){
 	var player = new Player(1);
 	var player2 = new Player(2);
 	var dealer = new Dealer();

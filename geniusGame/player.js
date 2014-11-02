@@ -50,6 +50,3 @@ player.prototype.setNshowGauge = function(inputNum){
 		console.log(player.guage);
 		return;};
 }
-
-var player = new Player(1);
-var player2 = new Player(2);
