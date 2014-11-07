@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> BNW GAME Views </title>
+    <link rel="stylesheet" type="text/css" href="./mainletter.css">
+    <link rel="stylesheet" href="css/timer.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="./style.css" media="screen" type="text/css" />
+</head>
+
+<body>
+
+  <div class='div1'>
+    <div class="table-title">
+      <h3> 1P POINTS </h3>
+    </div>
+
+    <table class="table-fill" id='thistable'>
+      <tr>
+        <td id='1' class="text"> 80 - 99</td>
+      </tr>
+      <tr>
+        <td id='2' class="text"> 60 - 79 </td>
+      </tr>
+      <tr>
+        <td id='3' class="text"> 40 - 59 </td>
+      </tr>
+      <tr>
+        <td id='4' class="text"> 20 - 39 </td>
+      </tr>
+      <tr>
+        <td id='5' class="text"> 0 - 19 </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class='div2'>
+    <br><br><br><br>
+    <div id='here' onclick="BNH2.start(BNH2.consoleGame)"> <h2 align="center"> START GAME </h2></div>
+    <div id='here2'> <h2 align="center"> GAME OVER </h2></div>
+    <div class='radialtimer' id='timer'></div>
+
+  </div>
+
+  <div class='div3'>
+    <div class="table-title">
+      <h3> 2P POINTS </h3>
+    </div>
+
+    <table class="table-fill">
+      <tr>
+        <td id='6' class="text"> 80 - 99</td>
+      </tr>
+      <tr>
+        <td id='7' class="text"> 60 - 79 </td>
+      </tr>
+      <tr>
+        <td id='8' class="text"> 40 - 59 </td>
+      </tr>
+      <tr>
+        <td id='9' class="text"> 20 - 39 </td>
+      </tr>
+      <tr>
+        <td id='10' class="text"> 0 - 19 </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class='div4'>
+  </div>
+
+  <div class='div5'>
+    <input type='text' id='inputField' placeholder='INSERT POINT' onkeypress="searchKeyPress(event)">
+    <button id='submit' onclick="BNH2.inputSomething()">SUBMIT</button>
+    <!--<button id='submit' onclick="Game.inputSomething()">SUBMIT</button>-->
+    <!--  <form>
+
+    </form> -->
+  </div>
+
+  <div class='div6'>
+    <div class='showcolor' id='scolor'>
+      <br><br><h2 align='center' id='colorname'> </h2>
+    </div>
+  </div>
+  <!--<script type="text/javascript" src="./BNH2.js"></script>
+	<script type="text/javascript" src="./BNH2.console.js"></script>-->
+  <script type="text/javascript" src="./Game.js"></script>
+  <script type="text/javascript" src="./timerindex.js"></script>
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+
+<script type="text/javascript">
+		function searchKeyPress(e) {
+	        // look for window.event in case event isn't passed in
+	        if (typeof e == 'undefined' && window.event) { e = window.event; }
+	        if (e.keyCode == 13) {
+            debugger;
+	            document.getElementById('submit').click();
+	        }
+	  }
+
+    window.addEventListener("keydown", searchKeyPress);
+
+	  function EventTarget() {
+			//this.handlers = {};
+			//this.something();
+		}
+
+		EventTarget.prototype = {
+			constructor: EventTarget,
+			init : function(){
+				this.handlers = [];
+				this.something();
+			},
+			something:function(){},
+			addHandler: function(type, handler) {
+				if (typeof this.handlers[type] == "undefined") {
+					this.handlers[type] = [];
+				}
+				this.handlers[type].push(handler);
+			},
+			fire: function(event) {
+				if (!event.target) {
+					event.target = this;
+				}
+				if (this.handlers[event.type] instanceof Array) {
+					var handlers = this.handlers[event.type];
+					for (var i=0, len=handlers.length; i < len; i++) {
+						handlers[i](event);
+					}
+				}
+			},
+			removeHandler: function(type, handler) {
+				if (this.handlers[type] instanceof Array) {
+					var handlers = this.handlers[type];
+					for (var i=0, len=handlers.length; i < len; i++) {
+						if (handlers[i] === handler) {
+							break;
+						}
+					}
+					handlers.splice(i, 1);
+				}
+			}
+		};
+
+		function handleMessage(event) {
+			console.log(event.target.name + " says : " + event.message);
+		}
+
+		function Person(name, age) {
+			//this.eventTarget = new EventTarget();
+			this.name = name;
+			this.age = age;
+			this.init();
+		}
+
+		Person.eventTarget.fire()
+		function inheritPrototype(subType, superType) {
+			var prototype = Object(superType.prototype);
+			prototype.constructor = subType;
+			subType.prototype = prototype;
+		}
+
+		inheritPrototype(Person, EventTarget);
+		Person.prototype.say = function(message) {
+			this.fire("message",{"msg":"some"});//{type:"message", message: message});
+		}
+
+	</script>
+
+</body>
+
+</html>
