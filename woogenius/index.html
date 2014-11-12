@@ -7,8 +7,8 @@
 	<button onclick="BNH2.start(BNH2.consoleGame)">콘솔게임 시작</button>
 	<input type="text" id="inputField" onkeypress="searchKeyPress(event)">
 	<button id="input" onclick="BNH2.inputSomething()">입력</button>
-	<script type="text/javascript" src="./BNH2.js"></script>
-	<script type="text/javascript" src="./BNH2.console.js"></script>
+	<script type="text/javascript" src="./BNW2.js"></script>
+	<script type="text/javascript" src="./BNW2.console.js"></script>
 	<script type="text/javascript">
 		function searchKeyPress(e) {
 	        // look for window.event in case event isn't passed in
@@ -16,32 +16,37 @@
 	        if (e.keyCode == 13) {
 	            document.getElementById('input').click();
 	        }
-	    }
+	    };
 	    
-	    		function EventTarget() {
-			//this.handlers = {};
-			//this.something();
-		}
+	    function CustomEvent(target) {
+	  //   	this.inheritPrototype = function (subType, superType) {
+			// 	var prototype = Object(superType.prototype);
+			// 	prototype.constructor = subType;
+			// 	subType.prototype = prototype;
+			// };
+			target.prototype.fire = function (type, handler) {
+				this.customEvent.fire(type, handler);
+				debugger;
+			};
+	    };
 
-		EventTarget.prototype = {
-			constructor: EventTarget,
-			init : function(){
-				this.handlers = [];
-				this.something();
+		CustomEvent.prototype = {
+			constructor: CustomEvent,
+			init: function(){
+				this.handlers = {};
 			},
-			something:function(){},
 			addHandler: function(type, handler) {
 				if (typeof this.handlers[type] == "undefined") {
 					this.handlers[type] = [];
 				}
 				this.handlers[type].push(handler);
 			},
-			fire: function(event) {
+			fire: function(type, event) {
 				if (!event.target) {
 					event.target = this;
 				}
-				if (this.handlers[event.type] instanceof Array) {
-					var handlers = this.handlers[event.type];
+				if (this.handlers[type] instanceof Array) {
+					var handlers = this.handlers[type];
 					for (var i=0, len=handlers.length; i < len; i++) {
 						handlers[i](event);
 					}
@@ -62,33 +67,40 @@
 
 		function handleMessage(event) {
 			console.log(event.target.name + " says : " + event.message);
-		}
+		};
+
+		// inheritPrototype(Person, EventTarget);
 
 		function Person(name, age) {
-			//this.eventTarget = new EventTarget();
+			this.customEvent = new CustomEvent(arguments.callee);
+			// this.customEvent.init.call(this);
+			// this.customEvent.inheritPrototype(Person, CustomEvent);
 			this.name = name;
 			this.age = age;
-			this.init();
-		}
-/*
-		Person.prototype.fire = function(eventName){
-			this.eventTarget.fire(eventName);
-		}
-*/
-
-		Person.eventTarget.fire()
+		};
 
 		function inheritPrototype(subType, superType) {
 			var prototype = Object(superType.prototype);
 			prototype.constructor = subType;
 			subType.prototype = prototype;
-		}
+		};
 		
-		inheritPrototype(Person, EventTarget);
+		// Person.prototype.fire = function(type, event){
+		// 	this.customEvent.fire.call(this, type, event);
+		// };
+		// Person.prototype.addHandler = function(type, event){
+		// 	this.customEvent.addHandler.call(this, type, event);
+		// };
+		// Person.prototype.removeHandler = function(type, event){
+		// 	this.customEvent.removeHandler.call(this, type, event);
+		// };
 
 		Person.prototype.say = function(message) {
-			this.fire("message",{"msg":"some"});//{type:"message", message: message});
-		}
+			this.fire("message",{"message":message});
+		};
+
+		var woogenius = new Person("woogenius", 26);
+		woogenius.addHandler("message", handleMessage);
 	</script>
 </body>
 </html>
