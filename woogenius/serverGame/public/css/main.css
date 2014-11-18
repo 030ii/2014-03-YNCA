@@ -44,6 +44,10 @@ input-group-btn>.btn:hover {
 	margin-top: -10px;
 }
 
+.statusField .round:after {
+	content: "R";
+}
+
 .statusField .score {
 	font-size: 3em;
 	margin-bottom: 10px;
@@ -129,6 +133,11 @@ input-group-btn>.btn:hover {
 	line-height: 30px;
 }
 
+.counterColorField .counterPrevColor label {
+	color: #888;
+}
+
+
 .counterColorField .counterPrevColor div:before {
 	content: "";
 }
@@ -151,6 +160,11 @@ input-group-btn>.btn:hover {
 	font-size: 4em;
 	margin-top: -10px;
 }
+
+.inputField .remainingTime:after {
+	content: "s";
+}
+
 
 .inputField input {
 	height: 51px;
