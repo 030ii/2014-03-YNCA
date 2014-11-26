@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Chat with socket.io and node.js</title>
+		<style>
+		#chat{
+			height:500px;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="chat"></div>
+		<form>
+			<input size="35" id="message" autocomplete="off"></input>			
+			<input type="submit"></input>
+		</form>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		console.log('Start!');
+		var clientSocket = io();
+		
+		var eleForm = document.querySelector('form');
+		var eleMessage = document.querySelector('#message');
+		var eleSubmit = eleForm.querySelector('input[type=submit]');
+
+		eleSubmit.addEventListener('click', function(event) {
+			event.preventDefault(); //return false랑 같은 기능하는 것. 기본기능(click event이후 발생할 것(원래는 클릭된 후 form이 submit되야하는데, 그것을 막는 것)을 먁는 것 
+			clientSocket.emit('CToServer', eleMessage.value);
+			//form input에서 받은 메시지를(eleMessage에 입력된 내용) send message라는 이름으로 보낸
+			eleMessage.value = '';
+		});
+
+		//server쪽에서 메시지를 emit했는데, 그것을 받고 & 보여주려면 아래 함수 필요  
+		clientSocket.on('SToClient', function(msg){
+			console.log('SToClient: ' + msg);
+		});
+
+
+	</script>
+	</body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>Count visitors</title>
+	</head>
+	<body>
+		<form name="counter" method="post" action="/some">
+			<input type="text" name="num">
+			<!-- num은 서버로 보낼 때 쓰는 것. id는 안 보내진다. -->
+			<button id ='but'> Visited!</button>
+		</form>
+	</body>
+	 <script>
+	 //addEventListener를 document에 달고 onload하려하면 안 됨.
+	//window에 걸고 onload 아닌 load로 해야
+	// window.addEventListener('load', function(){
+	// 	document.getElementById('num').innerText =1;
+	// });
+	 </script>
+	<footer>Yeslie</footer>
+</html>
