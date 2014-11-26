@@ -24,50 +24,50 @@ var isFirstPlayer = true;
 var firstRoom;
 var tempRoom;
 
-io.on('connection', function (socket) {
+// io.on('connection', function (socket) {
 	
-	socket.on('adduser', function(username){
-		if(isFirstPlayer === true){
-			socket.room = rooms.pop();
-			tempRoom = socket.room;
+// 	socket.on('adduser', function(username){
+// 		if(isFirstPlayer === true){
+// 			socket.room = rooms.pop();
+// 			tempRoom = socket.room;
 
-			socket.room.idStorage[0] = socket.id;
-			socket.room.player1.username = username;
+// 			socket.room.idStorage[0] = socket.id;
+// 			socket.room.player1.username = username;
 
-			socket.join(socket.room);
-			console.log('player1 you join' + socket.room.roomName);
+// 			socket.join(socket.room);
+// 			console.log('player1 you join' + socket.room.roomName);
 
-			isFirstPlayer = false;
-		}
-		else {
-			socket.room = tempRoom;
-			socket.room.idStorage[1] = socket.id;
-			socket.room.player2.username = username;
+// 			isFirstPlayer = false;
+// 		}
+// 		else {
+// 			socket.room = tempRoom;
+// 			socket.room.idStorage[1] = socket.id;
+// 			socket.room.player2.username = username;
 
-			socket.join(socket.room);
-			console.log('player2 you join' + socket.room.roomName);
-			isFirstPlayer = true;
-		}
-		socket.emit('updatechat', socket.room.roomName);
-	});
+// 			socket.join(socket.room);
+// 			console.log('player2 you join' + socket.room.roomName);
+// 			isFirstPlayer = true;
+// 		}
+// 		socket.emit('updatechat', socket.room.roomName);
+// 	});
 
 
-	socket.on('disconnect', function () {
-		if(socket.id === socket.room.idStorage[0]){
-			io.to(socket.room.idStorage[1]).emit('counterDisconnected');
-		}
-		else{
-			io.to(socket.room.idStorage[0]).emit('counterDisconnected');
-		}
+// 	socket.on('disconnect', function () {
+// 		if(socket.id === socket.room.idStorage[0]){
+// 			io.to(socket.room.idStorage[1]).emit('counterDisconnected');
+// 		}
+// 		else{
+// 			io.to(socket.room.idStorage[0]).emit('counterDisconnected');
+// 		}
 
-		console.log('user disconnected');
-	});
+// 		console.log('user disconnected');
+// 	});
 
-	socket.on('chat message', function (name, msg) {
-		io.emit('chat message', name, msg);
-	});
+// 	socket.on('chat message', function (name, msg) {
+// 		io.emit('chat message', name, msg);
+// 	});
 
-});
+// });
 
 
 http.listen(3000, function () {
