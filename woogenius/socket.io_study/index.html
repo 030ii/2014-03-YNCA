@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+      /* overlay styles, all needed */
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+/* just some content with arbitrary styles for explanation purposes */
+#modal {
+    width: 300px;
+    height: 200px;
+    line-height: 200px;
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -150px;
+    background-color: #f1c40f;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 11; /* 1px higher than the overlay layer */
+}
+    </style>
+  </head>
+  <body>
+  	<div id="overlay"></div>
+  <div id="modal">
+  	닉네임 입력
+  	<input id="name" autocomplete="off"/><button id='namebtn'>Send</button>
+  </div>
+    <ul id="messages"></ul>
+    <form onsubmit="return false;">
+      <input id="m" autocomplete="off"/><button id='btn'>Send</button>
+    </form>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+    	var socket = io();
+    	var btn = document.getElementById('btn');
+    	var namebtn = document.getElementById('namebtn');
+    	var m = document.getElementById('m');
+    	var nameinput = document.getElementById('name');
+    	var messages = document.getElementById('messages');
+    	var modal = document.getElementById('modal');
+    	var overlay = document.getElementById('overlay');
+    	var name = "하하";
+
+    	namebtn.onclick = function (e) {
+    		name = nameinput.value;
+    		modal.style.display = 'none';
+    		overlay.style.display = 'none';
+
+    		debugger;
+    	}
+
+    	btn.onclick = function (e) {
+    		socket.emit('chat message', name, m.value);
+    		m.value = '';
+    	};
+
+    	socket.on('chat message', function (name, msg) {
+    		messages.innerHTML = messages.innerHTML +
+    								'<li>' + name + " : " + msg+ '</li>';
+    	});
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> BNW GAME Views </title>
+    <link rel="stylesheet" type="text/css" href="./mainletter.css">
+    <link rel="stylesheet" href="css/timer.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="./style.css" media="screen" type="text/css" />
+</head>
+
+<body>
+
+  <div class='div1'>
+    <div class="table-title">
+      <h3> 1P POINTS </h3>
+    </div>
+
+    <table class="table-fill" id='thistable'>
+      <tr>
+        <td id='1' class="text"> 80 - 99</td>
+      </tr>
+      <tr>
+        <td id='2' class="text"> 60 - 79 </td>
+      </tr>
+      <tr>
+        <td id='3' class="text"> 40 - 59 </td>
+      </tr>
+      <tr>
+        <td id='4' class="text"> 20 - 39 </td>
+      </tr>
+      <tr>
+        <td id='5' class="text"> 0 - 19 </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class='div2'>
+    <br><br><br><br>
+    <div id='here' onclick="BNH2.start(BNH2.consoleGame)"> <h2 align="center"> START GAME </h2></div>
+    <div id='here2'> <h2 align="center"> GAME OVER </h2></div>
+    <div class='radialtimer' id='timer'></div>
+
+  </div>
+
+  <div class='div3'>
+    <div class="table-title">
+      <h3> 2P POINTS </h3>
+    </div>
+
+    <table class="table-fill">
+      <tr>
+        <td id='6' class="text"> 80 - 99</td>
+      </tr>
+      <tr>
+        <td id='7' class="text"> 60 - 79 </td>
+      </tr>
+      <tr>
+        <td id='8' class="text"> 40 - 59 </td>
+      </tr>
+      <tr>
+        <td id='9' class="text"> 20 - 39 </td>
+      </tr>
+      <tr>
+        <td id='10' class="text"> 0 - 19 </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class='div4'>
+  </div>
+
+  <div class='div5'>
+    <input type='text' id='inputField' placeholder='INSERT POINT' onkeypress="searchKeyPress(event)">
+    <button id='submit' onclick="BNH2.inputSomething()">SUBMIT</button>
+    <!--<button id='submit' onclick="Game.inputSomething()">SUBMIT</button>-->
+    <!--  <form>
+
+    </form> -->
+  </div>
+
+  <div class='div6'>
+    <div class='showcolor' id='scolor'>
+      <br><br><h2 align='center' id='colorname'> </h2>
+    </div>
+  </div>
+  <!--<script type="text/javascript" src="./BNH2.js"></script>
+	<script type="text/javascript" src="./BNH2.console.js"></script>-->
+  <script type="text/javascript" src="./Game.js"></script>
+  <script type="text/javascript" src="./timerindex.js"></script>
+</body>
+
+</html>

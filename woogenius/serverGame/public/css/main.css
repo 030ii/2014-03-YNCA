@@ -1,0 +1,212 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	background-attachment: fixed;
+	font-family: "Lato", "RixSGo L","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.taCenter {
+	text-align: center;
+}
+
+/*Fix Bootstrap Default*/
+.btn-info {
+	color: #ffffff;
+	background-color: #347486;
+	border-color: transparent;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info.focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {
+	color: #ffffff;
+	background-color: #347486;
+	border-color: rgba(0,0,0,0);
+}
+
+.btn-default {
+	color: #ffffff;
+	background-color: #485563;
+	border-color: transparent;
+}
+
+input-group-btn>.btn:hover {
+	z-index: 1;
+}
+
+/*for each Field*/
+.field {
+	height: 280px;
+}
+
+/*for Status Field*/
+.statusField .round{
+	font-size: 4em;
+	margin-bottom: 10px;
+	margin-top: -10px;
+}
+
+.statusField .round:after {
+	content: "R";
+}
+
+.statusField .score {
+	font-size: 3em;
+	margin-bottom: 10px;
+	margin-top: -10px;
+}
+
+.statusField .playerName {
+	margin-top: 0px;
+}
+
+/*for Counter Field*/
+.counterField > div {
+	padding: 0px;
+}
+
+.counterField .panel-body {
+	height: 86%;
+}
+
+.counterPointField .pointBoard {
+	margin: 0px auto;
+	width: 100%;
+	min-width: 80px;
+	height: 100%;
+}
+
+.counterPointField .pointBoard td {
+	vertical-align: middle !important;
+}
+
+.counterPointField tbody > tr.primary > td {
+	background-color: #df691a;
+}
+
+.counterColorField {
+	position: relative;
+}
+
+.counterColorField .counterColor {
+	font-size: 3em;
+	width: 100%;
+	height: 100%;
+	line-height: 211px;
+}
+
+.counterColorField .colorBlack {
+	color: #ebebeb;
+	background-color: #333;
+}
+
+.counterColorField .colorBlack:before {
+	content: "흑";
+}
+
+.counterColorField .colorWhite {
+	color: #333;
+	background-color: #DDD;
+}
+
+.counterColorField .colorWhite:before {
+	content: "백";
+}
+
+.counterColorField .colorNone {
+	color: #ebebeb;
+	background-color: #2b3e50;
+}
+
+.counterColorField .colorNone:before {
+	content: "?";
+}
+
+.counterColorField .counterPrevColor {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.counterColorField .counterPrevColor div {
+	padding: 0px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.counterColorField .counterPrevColor label {
+	color: #888;
+}
+
+
+.counterColorField .counterPrevColor div:before {
+	content: "";
+}
+
+/*for Input Field*/
+.inputField .attackOrder {
+	font-size: 4em;
+	margin-top: -10px;
+}
+
+.inputField .attackOrder .first:before {
+	content: "선공";
+}
+
+.inputField .attackOrder .last:before {
+	content: "후공";
+}
+
+.inputField .remainingTime {
+	font-size: 4em;
+	margin-top: -10px;
+}
+
+.inputField .remainingTime:after {
+	content: "s";
+}
+
+
+.inputField input {
+	height: 51px;
+}
+
+.inputField .progress {
+	width: 100%;
+	height: 30px;
+	margin: 0px auto 5px auto;
+	background-color: #2b3e50;
+}
+
+.inputField .remainingPoint {
+	height: 30px;
+	line-height: 30px;
+}
+
+/*for Chatting Field*/
+.chattingField .panel-body {
+	position: relative;
+	height: 86%;
+	padding: 0px;
+}
+
+.chattingField .form-group {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	margin-bottom: 0px;
+}
+
+.chattingField #chattingMessages {
+	height: 200px;
+	overflow-x: scroll;
+	overflow-y: hidden;
+}
+
+.chattingField #chattingMessages ul {
+	list-style-type: none;
+	text-align: left;
+	padding: 0px 30px;
+	width: 100%;
+}
+
+
