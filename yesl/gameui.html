@@ -1,0 +1,102 @@
+<html>
+	<head>
+		<title>Black and White game</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="gameui.css" />
+	</head>
+	<body>
+		<div id= "wrapper">
+			<div class="window">
+				<div class="bar">상태창</div>
+				<div id="opponent">
+					<div class="showColor">
+						<!-- 8개 칸의 테이블만들 -->
+						<table>
+						<tr>
+							<td>1r</td>
+							<td>2r</td>
+							<td>3r</td>
+							<td>4r</td>
+						</tr>
+						<tr>
+							<td>5r</td>
+							<td>6r</td>
+							<td>7r</td>
+							<td>8r</td>
+						</tr>
+						</table>
+					</div>
+					<div class="showScore">
+						<table>
+							<tr>
+							<th>name</th>
+							<th>score</th>
+							</tr>
+							<tr>
+							<td>Yesl</td>
+							<td>2</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+				<div id="round">1라운드
+					<br>SCORE</br>
+				</div>
+
+				<div id= "me">
+					<div class="showColor">
+						<!-- 8개 칸의 테이블만들 -->
+						<table>
+						<tr>
+							<td>1r</td>
+							<td>2r</td>
+							<td>3r</td>
+							<td>4r</td>
+						</tr>
+						<tr>
+							<td>5r</td>
+							<td>6r</td>
+							<td>7r</td>
+							<td>8r</td>
+						</tr>
+					</table>
+					</div>
+					<div class="showScore">
+						<!-- 2칸 테이블 위: 이름
+						아래: 점수 -->
+						<table>
+						<tr>name</tr>
+						<tr>other</tr>
+						<tr>score</tr>
+						<tr>2</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="window">
+				<div class="bar">입력창</div>
+				<div id="opponentInfo">
+					<div id="opponentGauge">
+						<!-- 5칸짜리 테이블 
+							각 칸에 점수 -->
+					</div>
+					<div id="opponentColor"></div>
+				</div>
+				<div id="input">
+					<div id="turn"> 선공 </div>
+					<div id="time"> 120초 </div>
+					<div id="remainingPt">60
+						<!-- 2개 칼럼 테이 -->
+					</div>
+					<div id="inputBar">
+						<input type="text">
+						<button>입력</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<footer>Yeslie</footer>
+</html>
