@@ -1,7 +1,37 @@
+/*
+	만들 부분
+	1 gameStart -> Player1 Name, P2 Name
+	2 changeRound -> int roundNum
+	3 updateScore
+	4 updatePointRange
+	5 updateRemainingPoint
+	6 inputPlayerName
+	7 initialize
+*/
+
 var socket = io();
 
 socket.on('connect', function(){
-	// socket.emit('adduser', prompt("What's your name?"));
+	$('#myModal').modal('show');
+	document.getElementById("myModal").focus();
+	//socket.emit('adduser', prompt("Write Your Name"));
+});
+
+// P1 P2 Name
+socket.on('gameStart', function (inputPlayerName) {
+
+});
+
+socket.on('changeRound', function(roundNum){
+
+});
+
+socket.on('updateScore', function(){
+
+});
+
+socket.on('updateRemainingPoint', function(){
+
 });
 
 socket.on('updatechat', function (roomName) {
@@ -12,25 +42,3 @@ socket.on('counterDisconnected', function(){
 	console.log('상대방이 채팅방을 나갔습니다. 연결이 끊어집니다.');
 });
 
-var BNW2 = {
-	changeRound : function (round) {
-		var roundDiv = document.getElementsByClassName('round')[0];
-		roundDiv.innerHTML = round;
-	},
-	changeScore : function (p1Score, p2Score) {
-		var p1ScoreDiv = document.getElementsByClassName('score')[0];
-		var p2ScoreDiv = document.getElementsByClassName('score')[1];
-
-		p1ScoreDiv.innerHTML = p1Score;
-		p2ScoreDiv.innerHTML = p2Score;
-	},
-	changeP1Name : function (p1Name) {
-		var p1NameDiv = document.getElementsByClassName('player1Name')[0];
-		p1NameDiv.innerHTML = p1Name;
-	},
-	changeP2Name : function (p2Name) {
-		var p2NameDiv = document.getElementsByClassName('player2Name')[0];
-		p2NameDiv.innerHTML = p2Name;
-	},
-
-}

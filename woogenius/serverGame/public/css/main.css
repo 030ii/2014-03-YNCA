@@ -2,7 +2,16 @@ html, body {
 	width: 100%;
 	height: 100%;
 	background-attachment: fixed;
-	font-family: "Lato", "RixSGo L","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.wrap{
+  padding:120px 0;
+  font-size:25px;
+  color:#888;
+  width:300px;
+  margin:0 auto;
+  text-align:center;
 }
 
 .taCenter {
@@ -170,11 +179,20 @@ input-group-btn>.btn:hover {
 	height: 51px;
 }
 
+.inputField .wrapProgress{
+	position: relative;
+}
+
+.inputField .remainingPoint{
+	position: absolute; top : 0px; left : 2px;
+}
+
 .inputField .progress {
-	width: 100%;
+	width: 99%;
 	height: 30px;
-	margin: 0px auto 5px auto;
+	margin: 0px auto 15px auto;
 	background-color: #2b3e50;
+	/*position: absolute; */
 }
 
 .inputField .remainingPoint {
