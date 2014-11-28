@@ -5,11 +5,12 @@ background-color: gray;
 
 .window{
 width:100%;
-height: 50%;
+height: 200px;
+float:left;
 }
 
 .bar{
-width:100%;
+width:400px;
 height: 50px;
 text-align: center;
 }
@@ -19,19 +20,18 @@ background-color: red;
 width:150px;
 display: inline-block;
 float:left;
-
 }
 
 .showColor{
 width: 100px;
-height: 120px;
+height: 60px;
 background-color: white;
 display: inline-block;
 }
 
 .showScore{
 width: 100px;
-height: 120px;
+height: 60px;
 display: inline-block;
 }
 
@@ -45,39 +45,78 @@ float:left;
 #round{
 width:100px;
 background-color: yellow;
-height: 240px;
+height: 120px;
 display: inline-block;
 float:left;
 }
 
-#opponentInfo{
-
+#input{
+width: 200px;
+height: 120px;
+float:left;
+display: inline-block;
 }
 
-#opponentGuauge{
+#opponentInfo{
+display: inline-block;
+width: 200px;
+background-color: yellow;
+float: left;
+}
 
+#opponentGauge{
+width:100px;
+height:20px;
+background color:green;
+float:left;
+display:inline-block;
 }
 
 #opponentColor{
-
+width: 100px;
+height: 120px;
+background-color: blue;
+display:inline-block;
+float:left ;
 }
 
-#input{
-
-}
 
 #turn{
-
+display:inline-block;
+float:left;
+width: 100px;
+height:60px;
+text-align: center;
 }
 
 #time{
-
+display:inline-block;
+float:left;
+width: 100px;
+height:60px;
+text-align: center;
 }
 
 #remainingPt{
+ 	background-color: #1a1a1a;
+    height: 15px;
+    width: 150px;
+    margin: 60px 0 15px;         
+    border-radius: 5px;
+    box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;  
+    /*!!!!!!!align center*/
+}
 
+#remainingPt span{
+	background-color: #fecf23;
+	width:60%;
+ 	display: inline-block;
+    height: 100%;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
 }
 
 #inputBar{
-
+ positiion: relative;
+ top:100px;
 }
