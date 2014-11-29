@@ -13,7 +13,7 @@ var BNW2game = function (player1, player2) {
 		player2Gauge : 5
 	};
 
-	this.setFirstPlayer = function () {
+	this.getFirstPlayer = function () {
 		// 첫 라운드
 		if (this.info.round == 1) {
 			var randomInt = (function getRandomInt(min, max) {
@@ -31,6 +31,16 @@ var BNW2game = function (player1, player2) {
 			// 라운드가 진행하면 이전라운드 위너를 첫번째 플레이어로 세팅하고 초기화
 			this.firstPlayer = this.winner;
 		}
+
+		return this.firstPlayer;
+	}
+
+	this.isFirstPlayer = function (player) {
+		if (this.firstPlayer === player) {
+			return true;
+		} else{
+			return false;
+		};
 	}
 
 	this.setWinner = function () {
@@ -122,19 +132,17 @@ var BNW2game = function (player1, player2) {
 	}
 }
 
-exports.initialize = function (p1Name, p2Name) {
+exports.initialize = function () {
 	var newGame = new BNW2game();
 	newGame.player1 = {
-		name : p1Name,
-		point : newGame.info.INIT_POINT,
-		score : newGame.info.INIT_SCORE,
+		point : newGame.static.INIT_POINT,
+		score : newGame.static.INIT_SCORE,
 		prevColor : [],
 		usingPoint : null
 	};
 	newGame.player2 = {
-		name : p2Name,
-		point : newGame.info.INIT_POINT,
-		score : newGame.info.INIT_SCORE,
+		point : newGame.static.INIT_POINT,
+		score : newGame.static.INIT_SCORE,
 		prevColor : [],
 		usingPoint : null
 	};

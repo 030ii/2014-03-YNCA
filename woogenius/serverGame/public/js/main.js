@@ -12,8 +12,8 @@
 var socket = io();
 
 socket.on('connect', function(){
-	$('#myModal').modal('show');
-	document.getElementById("myModal").focus();
+	$('#inputNameModal').modal('show');
+	document.getElementById("inputNameModal").focus();
 	//socket.emit('adduser', prompt("Write Your Name"));
 });
 

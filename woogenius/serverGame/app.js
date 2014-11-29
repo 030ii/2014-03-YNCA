@@ -11,6 +11,7 @@ var io = require('socket.io')(http);
 app.use(express.static(path.join(__dirname, 'public')));
 
 var gameResources = {
+	INIT_TIME : 120,
 	MAX_ROOM_NUM : 20,
 	isFirstPlayer : true,
 	tempRoom : null,
@@ -29,32 +30,85 @@ io.on('connection', function (socket) {
 		if(gameResources.isFirstPlayer === true){
 			socket.room = gameResources.rooms.pop();
 			socket.room.game = game.initialize();
-			socket.room.game.player1.name = playerName;
+			socket.player = socket.room.game.player1;
+			socket.player.name = playerName;
+			socket.player.socketId = socket.id;
 
 			tempRoom = socket.room;
-			socket.join(socket.room);
+			socket.join(socket.room.roomName);
 
-			console.log("p1 join room" + socket.room.roomName);
+			console.log(playerName + " join " + socket.room.roomName);
+
+			socket.emit('waitForPlayer2');
 
 			gameResources.isFirstPlayer = false;
-		}
-		else {
+		} else {
 			socket.room = tempRoom;
-			socket.room.game.player2.name = playerName;
-			socket.join(socket.room);
+			socket.player = socket.room.game.player2;
+			socket.player.name = playerName;
+			socket.player.socketId = socket.id;
 
-			socket.broadcast.to(socket.room).emit('gameStart', socket.room.game.player1.name, socket.room.game.player2.name);
+			socket.join(socket.room.roomName);
 
-			console.log("p2 join room" + socket.room.roomName);
+			socket.broadcast.to(socket.room.roomName).emit('player2Connected');
+
+			console.log(playerName + " join " + socket.room.roomName);
 
 			gameResources.isFirstPlayer = true;
 		}
 	});
 
+	socket.on('sendStart', function () {
+		var game = socket.room.game;
+		var firstPlayer = game.getFirstPlayer();
+
+		io.to(firstPlayer.socketId).emit('firstPlayerSetting');
+		io.to(firstPlayer.otherPlayer.socketId).emit('lastPlayerSetting');
+
+		socket.room.presentPlayer = firstPlayer;
+		socket.room.remaingTime = gameResources.INIT_TIME;
+		socket.room.timer = setInterval(function(){
+			io.to(firstPlayer.socketId).emit('setRemainingTime', socket.room.remaingTime);
+			socket.room.remaingTime--;
+		}, 1000);
+
+		io.sockets.in(socket.room.roomName).emit('gameStart', game.player1.name, game.player2.name);
+	});
+
+	socket.on('inputPoint', function (point) {
+		var game = socket.room.game;
+
+		console.log(socket.player.name + " input " + point);
+
+		if (game.inputPoint(socket.player, point)) {
+			clearInterval(socket.room.timer);
+			socket.emit('updatePointAndBlockPointInput', socket.player.point);
+
+			if (game.isFirstPlayer(socket.player)) {
+				// 후공으로 턴넘기기
+				var lastPlayer = socket.player.otherPlayer;
+				socket.room.presentPlayer = lastPlayer;
+				io.to(lastPlayer.socketId).emit('activatePointInput');
+				socket.room.remaingTime = gameResources.INIT_TIME;
+				socket.room.timer = setInterval(function(){
+					io.to(socket.room.presentPlayer.socketId).emit('setRemainingTime', socket.room.remaingTime);
+					socket.room.remaingTime--;
+				}, 1000);
+				
+			} else{
+				// 승부를 가리고 라운드 넘기기
+			};
+
+		} else {
+			socket.emit('invalidPointInput');
+		};
+
+	});
 
 	socket.on('disconnect', function () {
-		socket.leave(socket.room);
-
+		if(socket.room) {
+			socket.leave(socket.room.roomName);
+		}
 	});
 
 });

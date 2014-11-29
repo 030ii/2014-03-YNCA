@@ -41,6 +41,36 @@ input-group-btn>.btn:hover {
 	z-index: 1;
 }
 
+.popover  {
+	background: #d9534f !important;
+	color: #ffffff;
+}
+.popover.top>.arrow:after {
+	border-top-color:#d9534f;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+    font-size: 3em;
+    margin-top: 30px;
+    color: #df691a;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+#inputNameModal > div.modal-dialog > div > div.modal-body > div.wrap {
+	color: #FFFFFF;
+}
+
 /*for each Field*/
 .field {
 	height: 280px;
@@ -190,7 +220,7 @@ input-group-btn>.btn:hover {
 .inputField .progress {
 	width: 99%;
 	height: 30px;
-	margin: 0px auto 15px auto;
+	margin: 0px auto 8px auto;
 	background-color: #2b3e50;
 	/*position: absolute; */
 }
