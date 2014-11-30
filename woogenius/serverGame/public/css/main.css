@@ -18,7 +18,20 @@ html, body {
 	text-align: center;
 }
 
+.displayNone {
+	display: none;
+}
+
+.bigFont {
+	font-size: 4em;
+	color: #d9534f;
+}
+
 /*Fix Bootstrap Default*/
+.container {
+	margin-bottom: 50px;
+}
+
 .btn-info {
 	color: #ffffff;
 	background-color: #347486;
@@ -67,7 +80,8 @@ input-group-btn>.btn:hover {
     to { transform: scale(1) rotate(360deg);}
 }
 
-#inputNameModal > div.modal-dialog > div > div.modal-body > div.wrap {
+#notiModal > div.modal-dialog > div > div.modal-body > div.wrap {
+	width: 100%;
 	color: #FFFFFF;
 }
 
@@ -257,4 +271,12 @@ input-group-btn>.btn:hover {
 	width: 100%;
 }
 
+/*for Notification*/
+#notification {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	z-index: 5;
+	margin-bottom: 0px;
+}
 

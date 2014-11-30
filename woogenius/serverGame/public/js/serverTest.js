@@ -1,6 +1,6 @@
 var socket = io();
 
-(function () {
+(function (gc) {
 	var bindInputAndBtn = function (inputEl, btnEl, fn) {
 		btnEl.on('click', fn);
 
@@ -13,16 +13,14 @@ var socket = io();
 		});
 	}
 
+	// init for noti Modal
+	$('#notiModal').modal({backdrop: 'static', keyboard: false});
+
 	// init for input name
 	$("#inputName").popover({
 		placement : 'top',
 		content : '이름을 입력하세요.',
 		trigger : 'manual'
-	});
-
-	$('#inputNameModal').on('shown.bs.modal', function() {
-		$("#inputName").focus();
-		$("#inputName").popover('hide');
 	});
 
 	bindInputAndBtn($("#inputName"), $('#inputNameBtn'), function () {
@@ -49,18 +47,23 @@ var socket = io();
 			gc.showInvalidPointPopover();
 		}
 	});
-})();
+
+	// init for notification
+	$('#notification .close').on('click', function () {
+		$('#notification').addClass('displayNone');
+	});
+})(gc);
 
 
-socket.on('connect', function(){
-	$('#inputNameModal').modal({backdrop: 'static', keyboard: false});
-	$('#inputNameModal').modal('show');
+socket.on('connect', function(){	
+	gc.showNotiModal();
+	$("#inputName").focus();
+	$("#inputName").popover('hide');
 });
 
 socket.on('waitForPlayer2', function () {
 	console.log('플레이어 2의 접속을 기다리는 중입니다.');
-	$('#inputNameModal > div.modal-dialog > div > div.modal-body > div.wrap')
-		.html("<p>다른 플레이어의<br> 접속을 기다리는 중입니다.</p><span class='glyphicon glyphicon-refresh glyphicon-refresh-animate loading'></span>");
+	gc.changeNotiModal("<p>다른 플레이어의<br> 접속을 기다리는 중입니다.</p><span class='glyphicon glyphicon-refresh glyphicon-refresh-animate loading'></span>");
 });
 
 socket.on('player2Connected', function (p1Name, p2Name){
@@ -70,11 +73,10 @@ socket.on('player2Connected', function (p1Name, p2Name){
 
 socket.on("gameStart", function (p1Name, p2Name) {
 	console.log("게임이 시작됩니다.");
-	$('#inputNameModal > div.modal-dialog > div > div.modal-body > div.wrap')
-		.html("<p>게임이 시작됩니다.</p>");
+	gc.changeNotiModal("<p>게임이 시작됩니다.</p>");
 	gc.changePlayerName(p1Name, p2Name)
 	setTimeout(function() {
-		$('#inputNameModal').modal('hide');
+		gc.hideNotiModal();
 	}, 1000);
 });
 
@@ -105,55 +107,48 @@ socket.on('activatePointInput', function () {
 	gc.activatePointInput();
 });
 
+socket.on('showNotification', function (message) {
+	gc.showNotification(message);
+});
+
+socket.on('hideNotification', function () {
+	gc.hideNotification();
+});
+
+socket.on('showRoundInfoByNotiModal', function (round, text) {
+	gc.changeNotiModal('<h1>라운드'+round+"</h1><span class='bigFont'>"+text+"</span><br><br>3초 후 다음라운드로 진행합니다.");
+	gc.showNotiModal();
+});
+
+socket.on('proceedRound', function (roundInfo) {
+	gc.hideNotiModal();
+	gc.setRound(roundInfo.round);
+	gc.setScore(roundInfo.p1Score, roundInfo.p2Score);
+});
+
+socket.on('setCounterInfo', function (counterInfo) {
+	gc.setPointRange(counterInfo.pointRange);
+	gc.setBlackAndWhite(counterInfo.color);
+	gc.setPrevBlackAndWhite(counterInfo.round, counterInfo.color);
+});
+
+socket.on('inputTimeout', function () {
+	gc.showNotification('입력시간이 초과되었습니다. 0이 입력됩니다.');
+	socket.emit('inputPoint', 0);
+});
+
+socket.on('gameOverWinner', function () {
+	gc.changeNotiModal("<span class='bigFont'>이겼습니다!</span>");
+	gc.showNotiModal();
+});
+
+socket.on('gameOverLoser', function () {
+	gc.changeNotiModal("<span class='bigFont'>졌습니다.</span>");
+	gc.showNotiModal();
+});
+
 socket.on('counterDisconnected', function(){
 	console.log('상대방이 채팅방을 나갔습니다. 연결이 끊어집니다.');
 });
 
-// game controller
-var gc = {
-	changePlayerName : function (p1Name, p2Name) {
-		document.querySelector('.player1Name').innerHTML = p1Name;
-		document.querySelector('.player2Name').innerHTML = p2Name;
-	},
-	setFirstPlayer : function () {
-		document.querySelector('.attackOrder span').className = 'first';
-	},
-	setLastPlayer : function () {
-		document.querySelector('.attackOrder span').className = 'last';
-	},
-	deactivatePointInput : function () {
-		var inputPointEl = document.getElementById('inputPoint');
-		inputPointEl.setAttribute("disabled", "");
-		inputPointEl.setAttribute("placeholder", "입력을 기다리는 중.");
-	},
-	activatePointInput : function () {
-		var inputPointEl = document.getElementById('inputPoint');
-		inputPointEl.removeAttribute('disabled');
-		inputPointEl.setAttribute('placeholder', '포인트를 입력하세요.');
-		$("#inputPoint").focus();
-		// inputPointEl.focus();
-	},
-	setRemainingTime : function (remainingTime) {
-		var remainingTimeEl = document.querySelector('.remainingTime');
-		remainingTimeEl.innerHTML = remainingTime;
-
-		if (remainingTime < 15) {
-			remainingTimeEl.style.color = '#d9534f';
-		} else{
-			remainingTimeEl.style.color = '#ebebeb';
-		}
-	},
-	setRemainingPoint : function (remainingPoint) {
-		var remainingPointEl = document.querySelector('.remainingPoint');
-		remainingPointEl.innerHTML = remainingPoint;
-		remainingPointEl.setAttribute('style', 'width:'+remainingPoint+'%;')
-	},
-	showInvalidPointPopover : function () {
-		$("#inputPoint").popover('show');
-		setTimeout (function () {
-			$("#inputPoint").popover('hide');
-		}, 1000);
-		$('#inputPoint').val('');
-	}
-}
 

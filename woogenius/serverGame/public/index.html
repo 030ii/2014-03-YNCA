@@ -170,18 +170,21 @@
       </div>
     </div>
   </div>
+  <div class="alert alert-success displayNone" id="notification">
+    <button type="button" class="close">×</button>
+    <span class="content"> </span>
+  </div>
 
   <!-- Button trigger modal -->
 
   <!-- Modal -->
-  <div class="modal fade" id="inputNameModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="notiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">흑과백2 온라인</h4>
         </div>
         <div class="modal-body">
-          <iframe width="100%" height="300" src="//www.youtube.com/embed/eb5cGFRrmsg" frameborder="0" allowfullscreen></iframe>
           <div class='wrap'>
             <div class="form-group">
               <div class="input-group">
@@ -197,10 +200,12 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
+
   
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="/js/jquery-1.11.1.min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/gameController.js"></script>
   <script type="text/javascript" src="/js/serverTest.js"></script>
   <!-- <script type="text/javascript" src="/js/main.js"></script> -->
 

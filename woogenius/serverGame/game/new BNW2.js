@@ -13,7 +13,7 @@ var BNW2game = function (player1, player2) {
 		player2Gauge : 5
 	};
 
-	this.getFirstPlayer = function () {
+	this.getFirstPlayerAtFirstTime = function () {
 		// 첫 라운드
 		if (this.info.round == 1) {
 			var randomInt = (function getRandomInt(min, max) {
@@ -35,6 +35,10 @@ var BNW2game = function (player1, player2) {
 		return this.firstPlayer;
 	}
 
+	this.getFirstPlayer = function () {
+		return this.firstPlayer;
+	}
+
 	this.isFirstPlayer = function (player) {
 		if (this.firstPlayer === player) {
 			return true;
@@ -43,36 +47,42 @@ var BNW2game = function (player1, player2) {
 		};
 	}
 
-	this.setWinner = function () {
+	// 위너를 리턴하고 선공을 세팅하는 함수, 비길경우 null 리턴
+	this.getWinnerAndSetFirstPlayer = function () {
 		var firstPlayerPoint = this.firstPlayer.usingPoint;
 		var lastPlayerPoint = this.firstPlayer.otherPlayer.usingPoint;
+		var winner = null;
 
 		// 승부가 났을때 위너를 세팅하고 스코어를 올림. 비길땐 안올림.
 		if (firstPlayerPoint < lastPlayerPoint) {
-			this.winner = this.firstPlayer.otherPlayer;
-			this.winner.score++;
+			winner = this.firstPlayer.otherPlayer;
+			winner.score++;
+
+			this.firstPlayer = winner;
+
 		} else if (firstPlayerPoint > lastPlayerPoint) {
-			this.winner = this.firstPlayer;
-			this.winner.score++;
+			winner = this.firstPlayer;
+			winner.score++;
 		// 비기면 후공이 선공이 됨.
-	} else {
-		this.winner = this.firstPlayer.otherPlayer;
-		this.info.drawRound ++;
-	}
+		} else {
+			this.info.drawRound ++;
+		}
 
 		// 사용포인트 초기화
 		this.player1.usingPoint = null;
 		this.player2.usingPoint = null;
+
+		return winner;
 	}
 
-	// 게임이 끝났으면 위너를 넘기고, 비겼으면 "Draw"를, 안끝났으면 null을 넘김.
+	// 게임이 끝났으면 위너를 넘기고, 비겼으면 "Draw"를, 안끝났으면 null을 넘기고 라운드 증가.
 	this.isOver = function () {
-		var winScore = parseInt((this.TOTAL_ROUND - this.info.drawRound)/2) + 1;
+		var winScore = parseInt((this.static.TOTAL_ROUND - this.info.drawRound)/2) + 1;
 		if (this.player1.score == winScore) {
 			return this.player1;
 		} else if (this.player2.score == winScore) {
 			return this.player2;
-		} else if (this.round == this.TOTAL_ROUND) {
+		} else if (this.info.round == this.static.TOTAL_ROUND) {
 			if (this.player1.score > this.player2.score) {
 				return this.player1;
 			} else if (this.player1.score < this.player2.score) {
@@ -85,35 +95,37 @@ var BNW2game = function (player1, player2) {
 		return null;
 	}
 
-	// 플레이어의 점수 정보를 넘김 	
-	this.getPlayerInfomation = function (player) {
-		var info = {};
-		// 제시한 포인트가 있을때 흑, 백 정보를 포함해서 리턴
-		if (player.usingPoint === parseInt(player.usingPoint, 10)) {
-			info.color = this.getBlackOrWhite(player.usingPoint);
-		}
-
-		info.pointRange = this.getPointRange(player.point);
-
-		return info;
+	// 포인트를 입력하는 함수.
+	this.inputPoint = function (player, point) {
+		var parsedPoint = parseInt(point, 10);
+		player.usingPoint = parsedPoint;
+		player.point -= parsedPoint;
 	}
 
-	// 포인트를 입력하고 유효한 숫자이면 집어넣고 true 리턴, 아니면 false 리턴
-	this.inputPoint = function (player, point) {
-		if (player.point - point < 0) {
-			return false;
-		} else{
-			player.usingPoint = parseInt(point);
-			player.point -= point;
+	// 유효한 포인트인지 확인하는 함수.
+	this.isValidPoint = function (player, point) {
+		var parsedPoint = parseInt(point, 10);
+		if(point == parsedPoint && player.point - parsedPoint >= 0)
 			return true;
-		}
+
+		return false;
+	}
+
+	this.getRoundInfo = function () {
+		var roundInfo = {
+			round: this.info.round,
+			p1Score : this.player1.score,
+			p2Score : this.player2.score
+		};
+
+		return roundInfo;
 	}
 	
 	var getBlackOrWhite = function (point) {
 		if (point > 9) {
-			return "White";
+			return "W";
 		} else {
-			return "Black";
+			return "B";
 		}
 	}
 
@@ -129,6 +141,20 @@ var BNW2game = function (player1, player2) {
 		} else {
 			return 5;	// 80 ~ 99
 		}
+	}
+
+	this.getPlayerInfo = function (player) {
+		var info = {
+			round: this.info.round
+		};
+		// 제시한 포인트가 있을때 흑, 백 정보를 포함해서 리턴
+		if (player.usingPoint === parseInt(player.usingPoint, 10)) {
+			info.color = getBlackOrWhite(player.usingPoint);
+		}
+
+		info.pointRange = getPointRange(player.point);
+
+		return info;
 	}
 }
 
