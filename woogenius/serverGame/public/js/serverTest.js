@@ -48,6 +48,12 @@ var socket = io();
 		}
 	});
 
+	// init for chatting
+	bindInputAndBtn($("#inputMsg"), $('.inputMsgBtn'), function () {
+		socket.emit('inputMsg', $("#inputMsg").val());
+		$('#inputMsg').val('');
+	});	
+
 	// init for notification
 	$('#notification .close').on('click', function () {
 		$('#notification').addClass('displayNone');
@@ -71,13 +77,57 @@ socket.on('player2Connected', function (p1Name, p2Name){
 	socket.emit("sendStart", p1Name, p2Name);
 });
 
-socket.on("gameStart", function (p1Name, p2Name) {
+/* gameInfo : Object {
+	p1Name : player 1 name,
+	p2Name : player 2 name,
+	totalRound : total round,
+	initRound : round for init,
+	initPoint : point for init,
+	initScore : score for init,
+	initPointRange : point range for init
+}*/
+socket.on("gameStart", function (gameInfo) {
 	console.log("게임이 시작됩니다.");
 	gc.changeNotiModal("<p>게임이 시작됩니다.</p>");
-	gc.changePlayerName(p1Name, p2Name)
+
+	// default setting
+	gameInfo.totalRound = gameInfo.totalRound || 9;
+	gameInfo.initRound = gameInfo.initRound || 1;
+	gameInfo.initPoint = gameInfo.initPoint || 99;
+	gameInfo.initScore = gameInfo.initScore || 0;
+	gameInfo.initPointRange = gameInfo.initPointRange || 5;
+
+	// name setting
+	gc.changePlayerName(gameInfo.p1Name, gameInfo.p2Name);
+
+	// round setting
+	gc.setRound(gameInfo.initRound);
+	document.styleSheets[0].addRule('.statusField .round:after', "content: 'R/"+gameInfo.totalRound+"R';");
+
+	// score setting
+	gc.setScore(gameInfo.initScore, gameInfo.initScore);
+
+	// point range setting
+	gc.setPointRange(gameInfo.pointRange);
+
+	// point setting
+	gc.setRemainingPoint(gameInfo.initPoint);
+
 	setTimeout(function() {
+		var inputPointEl = document.getElementById('inputPoint');
 		gc.hideNotiModal();
+
+		if(!inputPointEl.hasAttribute('disabled')) {
+			// 포커스가 안먹는 부분
+			$("#inputPoint").focus();
+		}
 	}, 1000);
+});
+
+// className : .player1Name or .player2Name
+socket.on('checkMyName', function (className, playerName) {
+	gc.myName = playerName;
+	document.querySelector(className).classList.add('playerMe');
 });
 
 socket.on('firstPlayerSetting', function () {
@@ -137,18 +187,36 @@ socket.on('inputTimeout', function () {
 	socket.emit('inputPoint', 0);
 });
 
-socket.on('gameOverWinner', function () {
-	gc.changeNotiModal("<span class='bigFont'>이겼습니다!</span>");
+socket.on('gameOverWinner', function (playerName) {
+	gc.changeNotiModal(playerName+"<br><span class='bigFont'>승리!</span><br><br> 3초 후에 Reload 됩니다.");
 	gc.showNotiModal();
 });
 
-socket.on('gameOverLoser', function () {
-	gc.changeNotiModal("<span class='bigFont'>졌습니다.</span>");
+socket.on('gameOverLoser', function (playerName) {
+	gc.changeNotiModal(playerName+"<br><span class='bigFont'>패배!</span><br><br> 3초 후에 Reload 됩니다.");
 	gc.showNotiModal();
+
+	setTimeout(function () {
+		window.location.reload(true);
+	}, 3000);
+});
+
+socket.on('gameOverDraw', function () {
+	gc.changeNotiModal("<span class='bigFont'>비김!</span><br><br>3초 후에 추가게임이 시작됩니다.");
+	gc.showNotiModal();
+});
+
+socket.on('updatechat', function (name, msg) {
+	gc.appendMessage(name, msg);
 });
 
 socket.on('counterDisconnected', function(){
-	console.log('상대방이 채팅방을 나갔습니다. 연결이 끊어집니다.');
+	gc.changeNotiModal("상대방이 나갔습니다. <br> 3초 후에 Reload 됩니다.");
+	gc.showNotiModal();
+
+	setTimeout(function () {
+		window.location.reload(true);
+	}, 3000);
 });
 
 

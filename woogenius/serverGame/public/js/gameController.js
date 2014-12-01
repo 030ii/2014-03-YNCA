@@ -121,5 +121,17 @@ var gc = {
 		} else if (bw === 'W') {
 			aCounterPrevColorEl[round].className = 'col-xs-3 colorWhite';
 		}
+	},
+	appendMessage : function (name, message) {
+		var chattingMessagesEl = document.querySelector('#chattingMessages');
+		var chattingMessagesListEl = document.querySelector('#chattingMessages ul');
+		if(name === this.myName) {
+			var inputString = "<li class = 'myMessage'>" + message + "</li>";
+		} else {
+			var inputString = "<li>" + message + "</li>";
+		}
+		chattingMessagesListEl.innerHTML = chattingMessagesListEl.innerHTML + inputString;	
+
+		chattingMessagesEl.scrollTop = chattingMessagesEl.scrollHeight;
 	}
 }

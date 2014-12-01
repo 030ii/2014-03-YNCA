@@ -97,10 +97,6 @@ input-group-btn>.btn:hover {
 	margin-top: -10px;
 }
 
-.statusField .round:after {
-	content: "R";
-}
-
 .statusField .score {
 	font-size: 3em;
 	margin-bottom: 10px;
@@ -109,6 +105,14 @@ input-group-btn>.btn:hover {
 
 .statusField .playerName {
 	margin-top: 0px;
+}
+
+.statusField .playerMe {
+	color : #d9534f;
+}
+
+.statusField .playerMe:after {
+	content : '(me)';
 }
 
 /*for Counter Field*/
@@ -218,7 +222,6 @@ input-group-btn>.btn:hover {
 	content: "s";
 }
 
-
 .inputField input {
 	height: 51px;
 }
@@ -260,8 +263,8 @@ input-group-btn>.btn:hover {
 
 .chattingField #chattingMessages {
 	height: 200px;
-	overflow-x: scroll;
-	overflow-y: hidden;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .chattingField #chattingMessages ul {
@@ -269,6 +272,11 @@ input-group-btn>.btn:hover {
 	text-align: left;
 	padding: 0px 30px;
 	width: 100%;
+}
+
+.chattingField #chattingMessages ul li.myMessage {
+	text-align: right;
+	color: #d9534f;
 }
 
 /*for Notification*/

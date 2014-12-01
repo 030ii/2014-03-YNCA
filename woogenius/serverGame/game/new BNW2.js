@@ -3,14 +3,15 @@ var BNW2game = function (player1, player2) {
 		TOTAL_ROUND : 9,
 		INIT_POINT : 99,
 		INIT_SCORE : 0,
+		INIT_ROUND : 1,
 		DRAW_ROUND : 3,
 		DRAW_POINT : 33
 	};
 	this.info = {
+		startPoint : null,
+		startTotalRound : null,
 		round : 1,
-		drawRound : 0,
-		player1Gauge : 5,
-		player2Gauge : 5
+		drawRound : 0
 	};
 
 	this.getFirstPlayerAtFirstTime = function () {
@@ -77,12 +78,12 @@ var BNW2game = function (player1, player2) {
 
 	// 게임이 끝났으면 위너를 넘기고, 비겼으면 "Draw"를, 안끝났으면 null을 넘기고 라운드 증가.
 	this.isOver = function () {
-		var winScore = parseInt((this.static.TOTAL_ROUND - this.info.drawRound)/2) + 1;
+		var winScore = parseInt((this.info.startTotalRound - this.info.drawRound)/2) + 1;
 		if (this.player1.score == winScore) {
 			return this.player1;
 		} else if (this.player2.score == winScore) {
 			return this.player2;
-		} else if (this.info.round == this.static.TOTAL_ROUND) {
+		} else if (this.info.round == this.info.startTotalRound) {
 			if (this.player1.score > this.player2.score) {
 				return this.player1;
 			} else if (this.player1.score < this.player2.score) {
@@ -105,7 +106,7 @@ var BNW2game = function (player1, player2) {
 	// 유효한 포인트인지 확인하는 함수.
 	this.isValidPoint = function (player, point) {
 		var parsedPoint = parseInt(point, 10);
-		if(point == parsedPoint && player.point - parsedPoint >= 0)
+		if(point == parsedPoint && parsedPoint >= 0 && player.point - parsedPoint >= 0) 
 			return true;
 
 		return false;
@@ -156,6 +157,43 @@ var BNW2game = function (player1, player2) {
 
 		return info;
 	}
+
+	this.initializeDrawGame = function () {
+		// init for info
+		this.info.round = 1;
+		this.info.drawRound = 0;
+		this.info.startTotalRound = this.static.DRAW_ROUND;
+		this.info.startPoint = this.static.DRAW_POINT;
+
+		// init for player
+		this.player1.point = this.static.DRAW_POINT;
+		this.player1.score = this.static.INIT_SCORE;
+		this.player2.point = this.static.DRAW_POINT;
+		this.player2.score = this.static.INIT_SCORE;
+	}
+
+	/* gameInfo : Object {
+		p1Name : player 1 name,
+		p2Name : player 2 name,
+		totalRound : total round,
+		initRound : round for init,
+		initPoint : point for init,
+		initScore : score for init,
+		initPointRange : point range for init
+	}*/
+	this.getGameInfoForInit = function () {
+		var gameInfo = {
+			p1Name : this.player1.name,
+			p2Name : this.player2.name,
+			initScore : this.static.INIT_SCORE,
+			initRound : this.static.INIT_ROUND,
+			totalRound : this.info.startTotalRound,
+			initPoint : this.info.startPoint,
+			initPointRange : getPointRange(this.info.startPoint)
+		};
+
+		return gameInfo;
+	}
 }
 
 exports.initialize = function () {
@@ -163,18 +201,19 @@ exports.initialize = function () {
 	newGame.player1 = {
 		point : newGame.static.INIT_POINT,
 		score : newGame.static.INIT_SCORE,
-		prevColor : [],
 		usingPoint : null
 	};
 	newGame.player2 = {
 		point : newGame.static.INIT_POINT,
 		score : newGame.static.INIT_SCORE,
-		prevColor : [],
 		usingPoint : null
 	};
 
 	newGame.player1.otherPlayer = newGame.player2;
 	newGame.player2.otherPlayer = newGame.player1;
+
+	newGame.info.startPoint = newGame.static.INIT_POINT;
+	newGame.info.startTotalRound = newGame.static.TOTAL_ROUND;
 
 	return newGame;
 }

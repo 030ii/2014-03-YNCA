@@ -11,7 +11,7 @@ var io = require('socket.io')(http);
 app.use(express.static(path.join(__dirname, 'public')));
 
 var gameResources = {
-	INIT_TIME : 120,
+	INIT_TIME : 60,
 	MAX_ROOM_NUM : 20,
 	isFirstPlayer : true,
 	tempRoom : null,
@@ -65,7 +65,11 @@ io.on('connection', function (socket) {
 		var firstPlayer = game.getFirstPlayerAtFirstTime();
 
 		// 게임시작
-		io.sockets.in(socket.room.roomName).emit('gameStart', game.player1.name, game.player2.name);
+		io.sockets.in(socket.room.roomName).emit('gameStart', game.getGameInfoForInit());
+
+		// 자기이름 컬러표시
+		io.to(game.player1.socketId).emit('checkMyName', '.player1Name', game.player1.name);
+		io.to(game.player2.socketId).emit('checkMyName', '.player2Name', game.player2.name);
 
 		// 선공, 후공 인풋 세팅
 		gc.settingInputAtRoundStart(firstPlayer);
@@ -125,20 +129,52 @@ io.on('connection', function (socket) {
 
 			// 비겼다면.
 			} else if (isOver === "Draw") {
+				io.sockets.in(socket.room.roomName).emit('gameOverDraw');
+				game.initializeDrawGame();
+
+				var firstPlayer = game.getFirstPlayerAtFirstTime();
+
+				setTimeout(function () {
+					// 게임시작
+					io.sockets.in(socket.room.roomName).emit('gameStart', game.getGameInfoForInit());
+
+					// 선공, 후공 인풋 세팅
+					gc.settingInputAtRoundStart(firstPlayer);
+
+					// 현재 인풋을 할 플레이어는 퍼스트 플레이어다.
+					game.presentPlayer = firstPlayer;
+				}, 3000);
 
 			// 끝났다면.
 			} else {
-				io.to(isOver.socketId).emit('gameOverWinner');
-				io.to(isOver.otherPlayer.socketId).emit('gameOverLoser');
+				io.to(isOver.socketId).emit('gameOverWinner', isOver.name);
+				io.to(isOver.otherPlayer.socketId).emit('gameOverLoser', isOver.otherPlayer.name);
 			}
 		}
 
 
 	});
 
+	socket.on('inputMsg', function (msg) {
+		io.sockets.in(socket.room.roomName).emit('updatechat', socket.player.name, msg);
+	})
+
 	socket.on('disconnect', function () {
 		if(socket.room) {
-			socket.leave(socket.room.roomName);
+			clearInterval(socket.room.timer);
+			if(io.sockets.adapter.rooms[socket.room.roomName]) {
+				var newRoom = {
+					roomName : socket.room.roomName
+				};
+				socket.broadcast.to(socket.room.roomName).emit('counterDisconnected');
+
+				gameResources.rooms.push(newRoom);
+				socket.leave(socket.room.roomName);
+
+				console.log("방개수 : " + gameResources.rooms.length);
+			}
+
+			delete socket.room;
 		}
 	});
 
@@ -186,15 +222,16 @@ io.on('connection', function (socket) {
 		},
 		// 3초를 기다리고 라운드를 진행하는 함수.
 		wait3SecondsAndProceedRound : function (roundInfo, game) {
-			setTimeout(function () {
+			setTimeout(function () {				
+				// 모달을 없애고 라운드 정보를 업데이트.
+				io.sockets.in(socket.room.roomName).emit('proceedRound', roundInfo);
+
 				// 첫번째 플레이어 세팅
 				var firstPlayer = game.getFirstPlayer();
 				this.settingInputAtRoundStart(firstPlayer);
 
 				game.presentPlayer = firstPlayer;
-				
-				// 모달을 없애고 라운드 정보를 업데이트.
-				io.sockets.in(socket.room.roomName).emit('proceedRound', roundInfo);
+
 			}.bind(this),3000);
 		}
 
