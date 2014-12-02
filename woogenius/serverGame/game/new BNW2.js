@@ -67,6 +67,7 @@ var BNW2game = function (player1, player2) {
 		// 비기면 후공이 선공이 됨.
 		} else {
 			this.info.drawRound ++;
+			this.firstPlayer = this.firstPlayer.otherPlayer;
 		}
 
 		// 사용포인트 초기화

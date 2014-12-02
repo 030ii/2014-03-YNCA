@@ -58,6 +58,16 @@ var socket = io();
 	$('#notification .close').on('click', function () {
 		$('#notification').addClass('displayNone');
 	});
+
+	// modal binding Event
+	$('#notiModal').on('hidden.bs.modal', function () {
+		var inputPointEl = document.getElementById('inputPoint');
+
+		if(!inputPointEl.hasAttribute('disabled')) {
+			// 포커스가 안먹는 부분
+			$("#inputPoint").focus();
+		}
+	});
 })(gc);
 
 
@@ -104,6 +114,9 @@ socket.on("gameStart", function (gameInfo) {
 	gc.setRound(gameInfo.initRound);
 	document.styleSheets[0].addRule('.statusField .round:after', "content: 'R/"+gameInfo.totalRound+"R';");
 
+	// prev round setting
+	gc.resetColor();
+
 	// score setting
 	gc.setScore(gameInfo.initScore, gameInfo.initScore);
 
@@ -114,19 +127,13 @@ socket.on("gameStart", function (gameInfo) {
 	gc.setRemainingPoint(gameInfo.initPoint);
 
 	setTimeout(function() {
-		var inputPointEl = document.getElementById('inputPoint');
 		gc.hideNotiModal();
-
-		if(!inputPointEl.hasAttribute('disabled')) {
-			// 포커스가 안먹는 부분
-			$("#inputPoint").focus();
-		}
 	}, 1000);
 });
 
 // className : .player1Name or .player2Name
-socket.on('checkMyName', function (className, playerName) {
-	gc.myName = playerName;
+socket.on('checkMyName', function (className, playerNum) {
+	gc.myNum = playerNum;
 	document.querySelector(className).classList.add('playerMe');
 });
 
@@ -164,6 +171,16 @@ socket.on('showNotification', function (message) {
 socket.on('hideNotification', function () {
 	gc.hideNotification();
 });
+
+// var methods = ['activatePointInput', 'showNotification', 'hideNotification'];
+
+// for (var i = 0; i < methods.length; i++) {
+// 	// (function (method) {
+// 		socket.on(method, function (message) {
+// 			gc[method[i]](message);
+// 		}
+// 	// })(methods[i]);
+// };
 
 socket.on('showRoundInfoByNotiModal', function (round, text) {
 	gc.changeNotiModal('<h1>라운드'+round+"</h1><span class='bigFont'>"+text+"</span><br><br>3초 후 다음라운드로 진행합니다.");
@@ -206,8 +223,8 @@ socket.on('gameOverDraw', function () {
 	gc.showNotiModal();
 });
 
-socket.on('updatechat', function (name, msg) {
-	gc.appendMessage(name, msg);
+socket.on('updatechat', function (num, msg) {
+	gc.appendMessage(num, msg);
 });
 
 socket.on('counterDisconnected', function(){

@@ -111,6 +111,17 @@ var gc = {
 			counterColorEl.className = 'counterColor colorNone';
 		}
 	},
+	resetColor : function () {
+		var counterColorEl = document.querySelector('.counterColor');
+		var aCounterPrevColorEl = document.querySelectorAll('.counterPrevColor div');
+		var length = aCounterPrevColorEl.length;
+
+		for (var i = 1; i < length; i++) {
+			aCounterPrevColorEl[i].className = 'col-xs-3 colorNone';
+		}
+
+		counterColorEl.className = 'counterColor colorNone';
+	},
 	setPrevBlackAndWhite : function (round, bw) {
 		if(round == 9)
 			return;
@@ -120,15 +131,17 @@ var gc = {
 			aCounterPrevColorEl[round].className = 'col-xs-3 colorBlack';
 		} else if (bw === 'W') {
 			aCounterPrevColorEl[round].className = 'col-xs-3 colorWhite';
+		} else {
+			aCounterPrevColorEl[round].className = 'col-xs-3 colorNone';
 		}
 	},
-	appendMessage : function (name, message) {
+	appendMessage : function (playerNum, message) {
 		var chattingMessagesEl = document.querySelector('#chattingMessages');
 		var chattingMessagesListEl = document.querySelector('#chattingMessages ul');
-		if(name === this.myName) {
-			var inputString = "<li class = 'myMessage'>" + message + "</li>";
+		if(playerNum == this.myNum) {
+			var inputString = "<li class='myMessage'><span>" + message + "</span></li>";
 		} else {
-			var inputString = "<li>" + message + "</li>";
+			var inputString = "<li><span>" + message + "</span></li>";
 		}
 		chattingMessagesListEl.innerHTML = chattingMessagesListEl.innerHTML + inputString;	
 

@@ -33,6 +33,7 @@ io.on('connection', function (socket) {
 			socket.room.game = game.initialize();
 			socket.player = socket.room.game.player1;
 			socket.player.name = playerName;
+			socket.player.num = 1;
 			socket.player.socketId = socket.id;
 
 			tempRoom = socket.room;
@@ -45,9 +46,16 @@ io.on('connection', function (socket) {
 			gameResources.isFirstPlayer = false;
 		// 두번째 플레이어
 		} else {
+			if(!io.sockets.adapter.rooms[tempRoom.roomName]) {
+				gameResources.isFirstPlayer = false;
+				socket.emit('counterDisconnected');
+				return;
+			}
+
 			socket.room = tempRoom;
 			socket.player = socket.room.game.player2;
 			socket.player.name = playerName;
+			socket.player.num = 2;
 			socket.player.socketId = socket.id;
 
 			socket.join(socket.room.roomName);
@@ -68,8 +76,8 @@ io.on('connection', function (socket) {
 		io.sockets.in(socket.room.roomName).emit('gameStart', game.getGameInfoForInit());
 
 		// 자기이름 컬러표시
-		io.to(game.player1.socketId).emit('checkMyName', '.player1Name', game.player1.name);
-		io.to(game.player2.socketId).emit('checkMyName', '.player2Name', game.player2.name);
+		io.to(game.player1.socketId).emit('checkMyName', '.player1Name', game.player1.num);
+		io.to(game.player2.socketId).emit('checkMyName', '.player2Name', game.player2.num);
 
 		// 선공, 후공 인풋 세팅
 		gc.settingInputAtRoundStart(firstPlayer);
@@ -135,14 +143,16 @@ io.on('connection', function (socket) {
 				var firstPlayer = game.getFirstPlayerAtFirstTime();
 
 				setTimeout(function () {
-					// 게임시작
-					io.sockets.in(socket.room.roomName).emit('gameStart', game.getGameInfoForInit());
+					if (socket.room) {
+						// 게임시작
+						io.sockets.in(socket.room.roomName).emit('gameStart', game.getGameInfoForInit());
 
-					// 선공, 후공 인풋 세팅
-					gc.settingInputAtRoundStart(firstPlayer);
+						// 선공, 후공 인풋 세팅
+						gc.settingInputAtRoundStart(firstPlayer);
 
-					// 현재 인풋을 할 플레이어는 퍼스트 플레이어다.
-					game.presentPlayer = firstPlayer;
+						// 현재 인풋을 할 플레이어는 퍼스트 플레이어다.
+						game.presentPlayer = firstPlayer;
+					}
 				}, 3000);
 
 			// 끝났다면.
@@ -156,22 +166,23 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('inputMsg', function (msg) {
-		io.sockets.in(socket.room.roomName).emit('updatechat', socket.player.name, msg);
+		io.sockets.in(socket.room.roomName).emit('updatechat', socket.player.num, msg);
 	})
 
 	socket.on('disconnect', function () {
 		if(socket.room) {
 			clearInterval(socket.room.timer);
+			console.log(io.sockets.adapter.rooms[socket.room.roomName]);
 			if(io.sockets.adapter.rooms[socket.room.roomName]) {
 				var newRoom = {
 					roomName : socket.room.roomName
 				};
 				socket.broadcast.to(socket.room.roomName).emit('counterDisconnected');
 
-				gameResources.rooms.push(newRoom);
+				if (gameResources.rooms.length < gameResources.MAX_ROOM_NUM) {
+					gameResources.rooms.push(newRoom);
+				}
 				socket.leave(socket.room.roomName);
-
-				console.log("방개수 : " + gameResources.rooms.length);
 			}
 
 			delete socket.room;
@@ -201,6 +212,11 @@ io.on('connection', function (socket) {
 		settingTimer : function (player) {
 			socket.room.remaingTime = gameResources.INIT_TIME;
 			socket.room.timer = setInterval(function(){
+				if(!socket.room) {
+					clearInterval(socket.room.timer);
+					return;
+				}
+
 				if(socket.room.remaingTime >= 0) {
 					io.to(player.socketId).emit('setRemainingTime', socket.room.remaingTime);
 				} else {
@@ -222,16 +238,17 @@ io.on('connection', function (socket) {
 		},
 		// 3초를 기다리고 라운드를 진행하는 함수.
 		wait3SecondsAndProceedRound : function (roundInfo, game) {
-			setTimeout(function () {				
-				// 모달을 없애고 라운드 정보를 업데이트.
-				io.sockets.in(socket.room.roomName).emit('proceedRound', roundInfo);
+			setTimeout(function () {
+				if (socket.room) {
+					// 모달을 없애고 라운드 정보를 업데이트.
+					io.sockets.in(socket.room.roomName).emit('proceedRound', roundInfo);
 
-				// 첫번째 플레이어 세팅
-				var firstPlayer = game.getFirstPlayer();
-				this.settingInputAtRoundStart(firstPlayer);
+					// 첫번째 플레이어 세팅
+					var firstPlayer = game.getFirstPlayer();
+					this.settingInputAtRoundStart(firstPlayer);
 
-				game.presentPlayer = firstPlayer;
-
+					game.presentPlayer = firstPlayer;
+				}
 			}.bind(this),3000);
 		}
 
