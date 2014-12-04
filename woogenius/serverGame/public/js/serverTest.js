@@ -121,7 +121,7 @@ socket.on("gameStart", function (gameInfo) {
 	gc.setScore(gameInfo.initScore, gameInfo.initScore);
 
 	// point range setting
-	gc.setPointRange(gameInfo.pointRange);
+	gc.setPointRange(gameInfo.initPointRange);
 
 	// point setting
 	gc.setRemainingPoint(gameInfo.initPoint);

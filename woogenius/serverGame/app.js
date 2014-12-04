@@ -47,7 +47,7 @@ io.on('connection', function (socket) {
 		// 두번째 플레이어
 		} else {
 			if(!io.sockets.adapter.rooms[tempRoom.roomName]) {
-				gameResources.isFirstPlayer = false;
+				gameResources.isFirstPlayer = true;
 				socket.emit('counterDisconnected');
 				return;
 			}

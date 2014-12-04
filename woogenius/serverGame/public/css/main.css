@@ -94,6 +94,10 @@ input-group-btn>.btn:hover {
 	background-color: #178C3F;
 }
 
+.table-striped>tbody>tr:nth-child(odd) {
+	background-color: transparent;
+}
+
 /*for each Field*/
 .field {
 	height: 280px;
