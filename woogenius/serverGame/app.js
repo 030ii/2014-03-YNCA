@@ -65,6 +65,7 @@ io.on('connection', function (socket) {
 			console.log(playerName + " join " + socket.room.roomName);
 
 			gameResources.isFirstPlayer = true;
+
 		}
 	});
 
