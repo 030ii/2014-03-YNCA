@@ -9,6 +9,7 @@ color: #FEFBCD;
 }
 #wrapper{
 font-family: verdana;
+display: none;
 }
 
 .window{
@@ -38,27 +39,29 @@ float:left;
 .showColor{
 width: 100px;
 height: 60px;
-background-color: white;
+/*background-color: white;*/
 /*display: inline-block;*/
 margin: 0 auto;
 }
 
- td{
-    /*border: 2px solid black;*/
+table{
+    margin: 0 auto;
+}
+
+td{
     background-color: #F96CA1;
 }
 
 .showScore{
 width: 100px;
 height: 60px;
-/*display: inline-block;*/
+display: inline-block;
 margin: 0 auto;
 padding-left: 20px;
 }
 
-/*이거 안 됨!!!!! 하위 속성 어떻게 */
-.showScore #table{
-    border: none;
+.showScore table td{
+    background-color: #EFBEC2;
 }
 
 
@@ -67,7 +70,7 @@ padding-left: 20px;
 background-color:#FFCCDD;
 /*#FEAFAA;*/
 width: 150px;
-/*display: inline-block;*/
+display: inline-block;
 float:left;
 }
 
@@ -106,8 +109,11 @@ margin: 0 auto;
 #opponentGauge{
 width:100px;
 height:20px;
+margin-left: 10px;
+margin-top: 10px;
 float:left;
 display:inline-block;
+text-align: center;
 }
 
 #opponentColor{
@@ -116,7 +122,9 @@ height: 100px;
 line-height: 100px;
 background-color: black;
 display:inline-block;
-float:left ;
+margin-left: 90px;
+margin-top: -10px;
+/*float:left ;*/
 text-align: center;
 
 }
@@ -127,6 +135,7 @@ display:inline-block;
 float:left;
 width: 100px;
 height:60px;
+line-height: 60px;
 text-align: center;
 }
 
@@ -136,13 +145,18 @@ float:left;
 width: 100px;
 height:60px;
 text-align: center;
+line-height: 60px;
+}
+
+#gaugeBar{
+margin-top: 61px;
 }
 
 #remainingPt{
  	background-color: #EFBEC2;
     height: 15px;
     width: 150px;
-    margin: 60px 0 15px;         
+    margin: 0 auto;         
     border-radius: 5px;
     box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;  
     /*!!!!!!!align center*/
@@ -152,15 +166,20 @@ text-align: center;
 	background-color: #F06791;
 	width:60%;
  	display: inline-block;
-    height: 100%;
+    height: 90%;
     border-radius: 3px;
     box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    margin-top: 1px;
+    text-align: center;
 }
 
 #inputBar{
  position: relative;
  background-color: #EFBEC2;
- top:35px;
+ margin-top:50px;
+}
+input{
+  margin-left: 10px;
 }
 
 button{

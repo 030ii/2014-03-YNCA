@@ -21,36 +21,30 @@ app.use(express.static(__dirname));
 var socketid = null;
 
 io.sockets.on('connection', function(clientSocket){
+	
 	if (!socketid) {
 		socketid = clientSocket.id;
 	}
+	
+	clientSocket.on('roomJoin', function(){
 
-	clientSocket.on('num', function(data){
-		var newNum = 100 - data;
-		//socket.emit으로 특정 사람한테 보내기 
-		clientSocket.emit('processedNum', newNum);
-		io.emit('firstPlayer');
+		console.log(socketid);
 
-		if (socketid) {
-			console.log(socketid);
-			io.to(socketid).emit('firstPlayer');
+		if(socketid){
+		io.socket.join('room1');
+		console.log('room1');	
+		}
+		//두명이면은 어떻게??
+		else{
+		io.socket.join('room2');
+		console.log("room2");
 		}
 	});
 
-
+	clientSocket.on('sendNum', function(num){
+		var data = 100-num;
+		//남의 게에지와 색 조정.
+	});
 });
 
-// io.sockets.on('processedNum', function(newData){
-// 	io.sockets.connected[id].emit('leftNum',newdata);
-// 	//다른 아이디에게도 emit은 어떻게??
-// 	});
-// });
-
-
-// function processedNum(data){
-// 	num= 100-data;
-// 	return num;
-// }
-
-// });
 
