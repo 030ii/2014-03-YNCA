@@ -2,6 +2,10 @@
 
 ### 기획서 링크 : [YNCA기획서.pdf](https://github.com/yskoh/2014-03-YNCA/blob/master/%EA%B8%B0%ED%9A%8D%EC%84%9C/YNCA%EA%B8%B0%ED%9A%8D%EC%84%9C.pdf?raw=true)
 
+## 12월 10일 회의내용
+* 지각하면 벌금 30분당 5000원
+* 해오기로 한 거 안하면 5000원
+
 ## Ground Rules
 * 지속적으로 실용적인 것을 만들자
 * 예쁘게 만들자
