@@ -1,0 +1,312 @@
+@import url(http://fonts.googleapis.com/css?family=Karla);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300);
+@import url(http://fonts.googleapis.com/css?family=Maiden+Orange);
+
+.div1{
+  align : left;
+  width : 25%;
+  height:500px;
+  float:left;
+  font-family:'Karla';
+}
+
+.div2{
+  width:50%;
+  height:500px;
+  float:left;
+}
+#scolor{
+  width : 120px;
+  height : 150px;
+  background : black;
+  margin-left : 40%;
+  margin-top : -59px;
+  border:2px solid black;
+}
+.div2 h3{
+  color:white;
+}
+/*
+#remaining{
+  margin-top : 50px;
+}
+#remaining .remainingTime{
+  font-size: 4em;
+  margin-top: -10px;
+}
+#remainingSec{
+  font-size: 1em;
+}
+*/
+
+.div3{
+  align : right;
+  width : 25%;
+  height:500px;
+  float:left;
+  font-family:'Karla';
+}
+
+div.table-title {
+  margin-left : 50px;
+  display: block;
+  /*margin: auto;*/
+  max-width: 200px;
+  /*padding:5px;*/
+  width: 100%;
+}
+.table-title h3 {
+   color: #F5A9A9;
+   text-align: center;
+   font-size: 35px;
+   font-weight: 400;
+   font-style:normal;
+   font-family: 'Maiden Orange', cursive;
+   text-shadow: 1px 1px #F5A9A9, 2px 2px #212121, 3px 3px #F5A9A9, 4px 4px #fafafa, 5px 5px #fafafa, 6px 6px #fafafa;
+   text-transform:uppercase;
+}
+/*** Table Styles **/
+.table-fill {
+  margin-left : 50px;
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  height: 320px;
+  /*margin: auto;*/
+  max-width: 200px;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+tr {
+  border-top: 1px solid gray;
+  border-bottom-: 1px solid gray;
+  color:white;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+/*
+tr:first-child {
+  border-top:none;
+}
+tr:last-child {
+  border-bottom:none;
+}
+tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+*/
+
+td {
+  background:#F5A9BC;
+  padding:20px;
+  text-align:center;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #C1C3D1;
+}
+/*
+td:last-child {
+  border-right: 0px;
+}
+td.text-left {
+  text-align: left;
+}
+td.text-center {
+  text-align: center;
+}
+td.text-right {
+  text-align: right;
+}
+*/
+
+.div4{
+  align : left;
+  width : 25%;
+  height:500px;
+  float:left;
+}
+.div4 .round{
+  color: #F7819F;
+  margin-top:-24px;
+}
+.div4 .roundNum{
+  color:#F5A9BC;
+  margin-top:-10px;
+}
+.div4 .score{
+  color : #FA5882;
+}
+.div4 .yourScore{
+  color:#F5A9BC;
+  float:left;
+  margin-left:90px;
+  margin-right:110px;
+  margin-top:-20px;
+}
+.div4 .myScore{
+  color:#FF0040;
+  float:left;
+  margin-top:-20px;
+}
+.div5{
+  width:50%;
+  height:500px;
+  float:left;
+  padding:0px 0;
+  font-size:62px;
+  color:#888;
+  font-family:'Karla';
+  margin:0 auto;
+  text-align:center;
+}
+.div5 #inputField{
+  margin-right:-170px;
+}
+
+input{
+  font-family:'Ubuntu';
+  font-weight:300;
+  border:0;
+  border-bottom:1px solid #ff5407;
+  width:31%;
+  height:36px;
+  font-size:26px;
+  /*margin-left:130px;*/
+}
+input:focus{
+  outline:none;
+  box-shadow:none;
+  background:#ffeae2;
+}
+button{
+  border:0;
+  background:transparent;
+  padding:5px;
+  margin-top:40px;
+  position:relative;
+  margin-right:180px;
+}
+
+#submit{
+  background:#a0a0a0;
+  color:#fff;
+  float:right;
+}
+
+.div6{
+  align : right;
+  width : 25%;
+  height:500px;
+  float:left;
+}
+
+
+/*Chatting Room (+bootstrap)*/
+.chattingField .panel-body {
+  position: relative;
+  height: 10%;
+  padding: 0px;
+}
+.chattingField .form-group {
+  position: absolute;
+  bottom: 0px;
+  width: 860px;
+  margin-bottom: 0px;
+}
+.chattingField #chattingMessages {
+  height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.chattingField #chattingMessages ul {
+  list-style-type: none;
+  text-align: left;
+  padding: 0px 30px;
+  width: 100%;
+}
+.chattingField #chattingMessages ul li.myMessage {
+  text-align: right;
+  color: #d9534f;
+}
+.panel {
+  margin-bottom: 0px;
+  background-color: white;
+  border: 1px solid transparent;
+  border-radius: 0;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-top:-30px;
+}
+.panel-body {
+  padding: 0px;
+}
+.panel-heading {
+  padding: 8px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-right-radius: -1;
+  border-top-left-radius: -1;
+}
+.panel-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 17px;
+  color: #FA5882;
+}
+.panel-title > a {
+  color: inherit;
+}
+.panel-danger {
+  border-color:#FA5882 ;
+}
+.panel-danger > .panel-heading {
+  color: white;
+  background-color: white;
+  border-color: transparent;
+}
+.panel-danger > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: transparent;
+}
+.panel-danger > .panel-heading .badge {
+  color: white;
+  background-color: #ebebeb;
+}
+.panel-danger > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: transparent;
+}
+
+
+
+
+/*
+.round{
+  font-size: 3em;
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+.row .score {
+  font-size: 2em;
+  margin-bottom: 10px;
+  margin-top: -10px;
+}
+.playerName {
+  margin-top: 0px;
+}*/
+
+
+
+
+#modal {display:none;background-color:#FFFFFF;position:absolute;top:300px;left:200px;padding:10px;border:2px solid #E2E2E2;z-Index:9999}
