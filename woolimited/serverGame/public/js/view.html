@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> BNW GAME Views </title>
+    <link rel="stylesheet" type="text/css" href="./mainletter.css">
+    <link rel="stylesheet" href="./style.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="./timerstyle.css" media="screen" type="text/css">
+    <script src="./prefixfree.min.js"></script>
+    <script src="./modernizr.js"></script>
+  </head>
+
+<body>
+  <div class='div1'>
+    <div class="table-title">
+      <h3> 1P POINTS </h3>
+    </div>
+
+    <table class="table-fill" id='thistable'>
+      <tr>
+        <td id='1' class="text"> 80 - 99</td>
+      </tr>
+      <tr>
+        <td id='2' class="text"> 60 - 79 </td>
+      </tr>
+      <tr>
+        <td id='3' class="text"> 40 - 59 </td>
+      </tr>
+      <tr>
+        <td id='4' class="text"> 20 - 39 </td>
+      </tr>
+      <tr>
+        <td id='5' class="text"> 0 - 19 </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class='div2'>
+    <br><br><br><br>
+    <!--<div id='here' onclick="BNH2.start(BNH2.consoleGame)"> <h2 align="center"> START GAME </h2></div>
+    <!--<div id='here2'> <h2 align="center"> GAME OVER </h2></div>
+    <div class='radialtimer' id='timer'></div>-->
+    <div class='showcolor' id='scolor'>
+      <h3 align='center' id='colorname'> 흑 </h2>
+    </div>
+    <div id='remaining'>
+      <p id="progress" class="red">0</p>
+    </div>
+  </div>
+
+  <div class='div3'>
+    <div class="table-title">
+      <h3> 2P POINTS </h3>
+    </div>
+
+    <table class="table-fill">
+      <tr>
+        <td id='6' class="text"> 80 - 99</td>
+      </tr>
+      <tr>
+        <td id='7' class="text"> 60 - 79 </td>
+      </tr>
+      <tr>
+        <td id='8' class="text"> 40 - 59 </td>
+      </tr>
+      <tr>
+        <td id='9' class="text"> 20 - 39 </td>
+      </tr>
+      <tr>
+        <td id='10' class="text"> 0 - 19 </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class='div4'>
+    <div class='round'>
+      <h2 align='center'>Round</h2>
+    </div>
+    <div class='roundNum'>
+      <h2 align='center'>1</h2>
+    </div>
+    <div class='score'>
+      <h1 align='center'>Score Board</h1>
+    </div>
+    <div class='yourScore'>
+      <h1>0</h1>
+    </div>
+    <div class='myScore'>
+      <h1>3</h1>
+    </div>
+  </div>
+
+  <div class='div5'>
+    <input type='text' id='inputField' placeholder='INSERT POINT' onkeypress="searchKeyPress(event)">
+    <button id='submit' onclick="BNH2.inputSomething()">SUBMIT</button>
+    <!--<button id='submit' onclick="Game.inputSomething()">SUBMIT</button>-->
+    <!--  <form>
+
+    </form> -->
+  </div>
+
+  <div class='div6'>
+    <div class="field chattingField panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title" align='center'> Simple Chat Room </h3>
+      </div>
+      <div class="panel-body">
+        <div id="chattingMessages">
+          <ul>
+          </ul>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" id="inputMsg" class="form-control">
+            <span class="input-group-btn">
+              <button class="btn btn-primary inputMsgBtn" type="button">send</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<script type="text/javascript" src="./BNH2.js"></script>
+	<script type="text/javascript" src="./BNH2.console.js"></script>-->
+
+  <div class="alert alert-success displayNone" id="notification">
+    <button type="button" class="close">×</button>
+    <span class="content"> </span>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="mainModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">흑과백2 온라인</h4>
+        </div>
+        <div class="modal-body">
+          <div class='wrap'>
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" id="inputName" placeholder = "이름을 입력하세요." class="form-control" >
+                <span class="input-group-btn">
+                  <button id="inputNameBtn" class="btn btn-primary" type="button">입력</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script src="./thistimerindex.js"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="./jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="./bootstrap.min.js"></script>
+  <script type="text/javascript" src="./gameController.js"></script>
+  <script type="text/javascript" src="./main.js"></script>
+
+
+</body>
+
+</html>
