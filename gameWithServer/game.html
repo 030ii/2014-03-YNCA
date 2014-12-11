@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>흑과 백 게임</title>
+	   <link rel="stylesheet" type="text/css" href="game.css"/>
+	</head>
+	<body>
+		<div id ="start-zone">
+			<button id="startButton">Game Start</button>
+		</div>
+
+		<div id='wrapper'>
+			<div class='left-zone' >
+				<div class='player-name'>Player1</div>
+				<div class='player-score'>0</div>
+				<div class='player1-scoreboard'><img src='./img/scoreboard0.png'></div>
+				<div class='chatting'></div>
+				<div class='under-the-chatting'>
+					<input type='text' class='chat-text'>
+					<button class='chat-button'>Input</button>
+				</div>
+			</div>
+
+			<div class='center-zone'>
+				<div class='round'>Round 1</div>
+				<div class='info-message'>First attack : player1</div>
+				<div class='black-or-white color1'></div>
+				<div class='black-or-white color2'></div>
+				<div class='game-guide'>ex) player1 win!</div>
+				<div class='input-wrapper'>
+					<div class='info-message'>Input the number</div>
+					<input type='text' id='input-text'>
+					<button id='input-button'>Input</button>
+				</div>
+			</div>
+		
+			<div class='right-zone'>
+				<div class='player-name'>Player2</div>
+				<div class='player-score'>0</div>
+				<div class='player2-scoreboard'><img src='./img/scoreboard0.png'></div>
+				<div class='point-wrapper'>
+					<div class='info-message'>my point</div>
+					<div class='point'>99</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript">
+	    var socket = io();
+
+	    document.getElementById("startButton").addEventListener('click', function(){
+	    	document.getElementById('start-zone').style.display = "none";
+			document.getElementById('wrapper').style.display="block";	
+	    	socket.emit('join');
+	    });
+
+	    /* 처음 조인 되었을 때 방 번호 찍음 */
+	    socket.on('join', function(msg){
+	    	console.log(msg);
+	    });
+
+	    /* 게임 메세지 계속 받음 */
+	    socket.on('gameMessage', function(msg){
+	    	console.log(msg);
+	    });
+
+	    /* 숫자 input받아서 보내고 초기화 */
+	    document.getElementById('input-button').addEventListener('click',function(){
+			var input = document.getElementById('input-text').value;
+	  		socket.emit('input', input);
+	  		input = "";
+	  	});
+	  	
+	</script>
+</html>
