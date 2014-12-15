@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="./modalCSS.css">
+
+  <link rel="stylesheet" type="text/css" href="./style.css">
+
+  <link rel="stylesheet" media="screen" type="text/css" href="./timerstyle.css">
+  <link rel="stylesheet" type="text/css" href="./mainletter.css">
+
+  <script src="./prefixfree.min.js"></script>
+  <script src="./modernizr.js"></script>
+
+</head>
+
+<body>
+
+  <div class="global-modal" id='inputNameModal'>
+     <div class="overlay"></div>
+     <div class="global-modal_contents modal-transition">
+      <div class="global-modal-header">
+        <span class="mobile-close"> X </span>
+        <h3> 당신의 이름을 입력하세요 ! </h3>
+      </div>
+      <div class="global-modal-body">
+        <div class="content-left" align='center'>
+          <input id = 'yourName'> </input>
+          <a href="#"class="btn-green-flat" id='nameSend'> G A M E <br> S T A R T </a>
+        </div>
+       </div>
+     </div>
+   </div>
+  </div>
+  <!--
+  <div class="block center">
+    <a class="btn-green-flat-trigger" href="#">Show Modal</a>
+  </div>
+  -->
+<!--
+  <input id='name'> </input>
+  <button id='nameSend'> game start </button>
+
+  <p></p>
+
+  <input id='point'></input>
+  <button id='pointSend'> submit </button>
+-->
+
+
+<div class='div1'>
+  <div class="table-title">
+    <h3> 1P POINTS </h3>
+  </div>
+
+  <table class="table-fill" id='thistable'>
+    <tr>
+      <td id='1' class="text"> 80 - 99</td>
+    </tr>
+    <tr>
+      <td id='2' class="text"> 60 - 79 </td>
+    </tr>
+    <tr>
+      <td id='3' class="text"> 40 - 59 </td>
+    </tr>
+    <tr>
+      <td id='4' class="text"> 20 - 39 </td>
+    </tr>
+    <tr>
+      <td id='5' class="text"> 0 - 19 </td>
+    </tr>
+  </table>
+</div>
+
+<div class='div2'>
+  <br><br><br><br>
+  <!--<div id='here' onclick="BNH2.start(BNH2.consoleGame)"> <h2 align="center"> START GAME </h2></div>
+  <!--<div id='here2'> <h2 align="center"> GAME OVER </h2></div>
+  <div class='radialtimer' id='timer'></div>-->
+  <div class='showcolor' id='scolor'>
+    <h3 align='center' id='colorname'> 흑 </h2>
+  </div>
+  <div id='remaining'>
+    <p id="progress" class="red">0</p>
+  </div>
+</div>
+
+<div class='div3'>
+  <div class="table-title">
+    <h3> 2P POINTS </h3>
+  </div>
+
+  <table class="table-fill">
+    <tr>
+      <td id='6' class="text"> 80 - 99</td>
+    </tr>
+    <tr>
+      <td id='7' class="text"> 60 - 79 </td>
+    </tr>
+    <tr>
+      <td id='8' class="text"> 40 - 59 </td>
+    </tr>
+    <tr>
+      <td id='9' class="text"> 20 - 39 </td>
+    </tr>
+    <tr>
+      <td id='10' class="text"> 0 - 19 </td>
+    </tr>
+  </table>
+</div>
+
+<div class='div4'>
+  <div class='round'>
+    <h2 align='center'>Round</h2>
+  </div>
+  <div class='roundNum'>
+    <h2 align='center'>1</h2>
+  </div>
+  <div class='score'>
+    <h1 align='center'>Score Board</h1>
+  </div>
+  <div class='yourScore'>
+    <h1>0</h1>
+  </div>
+  <div class='myScore'>
+    <h1>3</h1>
+  </div>
+</div>
+
+<div class='div5'>
+  <input type='text' id='inputField' placeholder='INSERT POINT' onkeypress="searchKeyPress(event)">
+  <button id='submit' onclick="BNH2.inputSomething()">SUBMIT</button>
+  <!--<button id='submit' onclick="Game.inputSomething()">SUBMIT</button>-->
+  <!--  <form>
+
+  </form> -->
+</div>
+
+<div class='div6'>
+  <div class="field chattingField panel panel-danger">
+    <div class="panel-heading">
+      <h3 class="panel-title" align='center'> Simple Chat Room </h3>
+    </div>
+    <div class="panel-body">
+      <div id="chattingMessages">
+        <ul>
+        </ul>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" id="inputMsg" class="form-control">
+          <span class="input-group-btn">
+            <button class="btn btn-primary inputMsgBtn" type="button">send</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script type="text/javascript" src="./socket.io.js"></script>
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script type="text/javascript" src='./modalJS.js'></script>
+
+  <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+  <script src="./thistimerindex.js"></script>
+  
+
+  <script>
+    
+    var socket = io();
+    
+    /*
+    커넥되면 콘솔에 확인 차 출력
+    모달을 내린다
+    */
+    socket.on('connect', function(){
+      console.log('connect !');
+      document.getElementById('inputNameModal').style.visibility = 'visible';
+    });
+
+    /*
+    이름 입력 후, 게임 스타트 버튼이 눌려지면,
+    모달은 없애고
+    입력받은 플레이어 이름을 이밋해주고,
+    확인 차 콘솔에 이름을 보냈다고 출력하고,
+    이름 입력 칸을 '' 으로 초기화 해준다.
+    */
+    document.getElementById("nameSend").addEventListener("click", function(){
+        document.getElementById('inputNameModal').style.visibility = 'hidden';
+        socket.emit('pName', document.getElementById('yourName').value);
+        console.log('nameSend');
+        document.getElementById("yourName").value = '';
+    });
+
+    /*
+    플레이어 1이 플레이어 2를 기다리는 동안, '기다리시오!' 모달을 보여준다.
+    */
+    socket.on('waitingP2', function () {
+      console.log('두번째 입장자를 기다리고 있어요. 잠시만 기다려주세요.');
+      document.getElementsByClassName('global-modal-header')[0].childNodes[3].innerText = "플레이어 2를 기다리고 있어요. 잠시만 기다려주세요.";
+      document.getElementById('inputNameModal').style.visibility = 'visible';
+    });
+
+/*
+    socket.on('p2Connect', function(p1Name, p2Name){
+      console.log('플레이어 2까지 접속 완료되었습니다. 게임을 시작합니다.');
+      socket.emit('gameStart', p1Name, p2Name);
+    });
+*/
+
+  </script>
+
+</body>
+
+
+</html>
