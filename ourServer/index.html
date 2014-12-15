@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<title>Our Black and White Game</title>
+	</head>
+	<body>
+		<button id="startBtn">start</button>
+		<input type="text" id="inputNum">
+		<button id="submitBtn">submit</button>
+
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			var socket = io();
+			console.log("hello");
+
+			socket.on('welcome', function (msg) {
+				console.log('welcome ' + msg);
+			});
+
+			socket.on('gameMsg', function (msg) {
+				console.log(msg);
+			});
+
+
+			document.getElementById('startBtn').addEventListener('click', function(){
+				socket.emit('enter');
+			});
+
+			document.getElementById('submitBtn').addEventListener('click', function(){
+				var inputNumber = document.getElementById('inputNum').value;
+				socket.emit('input', inputNumber);
+				document.getElementById('inputNum').value = '';
+			});
+
+		</script>
+	</body>
+</html>
