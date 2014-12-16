@@ -81,8 +81,7 @@ io.on('connection', function (socket) {
     var firstPlayer = gameObject.getFirstPlayer();
     
     /* 게임을 시작하는 곳 */
-    io.sockets.in(socket.room.roomName).emit('gameMsg','Game Start!');
-    gameObject.start();
+    io.sockets.in(socket.room.roomName).emit('gameStart', gameObject.start());
 
     /* 각 라운드의 선공과 후공을 세팅하는 곳 */
     settingFirstPlayer(firstPlayer);
