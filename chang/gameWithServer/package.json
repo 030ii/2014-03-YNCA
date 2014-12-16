@@ -1,0 +1,10 @@
+{
+  "name": "game",
+  "version": "0.0.1",
+  "description": "The Black and White Game",
+  "dependencies": {
+    "express": "^4.10.4",
+    "express-session": "~1.9.1",
+    "socket.io": "^1.2.1"
+  }
+}
