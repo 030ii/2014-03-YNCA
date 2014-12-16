@@ -49,14 +49,14 @@ io.on('connection', function (socket) {
       
       console.log(playerName + 'join' + socket.room.roomName);
       
-      socket.emit('Player 2 Waiting...');
+      socket.emit('gameMsg','Player 2 Waiting...');
       
       gameResource.isPlayer1 = false;
     }
     else {
       if(!io.sockets.adapter.rooms[tempRoom.roomName]) {
         gameResource.isPlayer1 = true;
-        socekt.emit('counterDisconnected');
+        socekt.emit('gameMsg','counterDisconnected');
         return;
       }
       
@@ -69,7 +69,7 @@ io.on('connection', function (socket) {
       gameObject.initializePlayerSocketId(tempSocketId, socket.id);
       socket.join(socket.room.roomName);
       
-      socket.broadcast.to(socket.room.roomName).emit('player2 Connect');
+      socket.broadcast.to(socket.room.roomName).emit('gameMsg','player2 Connect');
       
       console.log(playerName + 'join' + socket.room.roomName);
       
@@ -81,8 +81,9 @@ io.on('connection', function (socket) {
     var firstPlayer = gameObject.getFirstPlayer();
     
     /* 게임을 시작하는 곳 */
-    io.sockets.in(socket.room.roomName).emit('gameStart', gameObject.start());
-    
+    io.sockets.in(socket.room.roomName).emit('gameMsg','Game Start!');
+    gameObject.start();
+
     /* 각 라운드의 선공과 후공을 세팅하는 곳 */
     settingFirstPlayer(firstPlayer);
 
@@ -95,7 +96,7 @@ io.on('connection', function (socket) {
     
     /* 게임 로직에서 처리할 듯 */
     // if(gameObject.isValidPoint(socket.player, point)) {
-    //   socket.emit('invalidPointInput');
+    //   socket.emit('gameMsg','invalidPointInput');
     //   return;
     // }
     
@@ -108,7 +109,7 @@ io.on('connection', function (socket) {
     /* 상대 플레이어에게 현재 플레이어의 정보를 넘겨준다 */
     
     /* 포인트 게이지를 업데이트 / 포인트 입력창을 Block 처리한다 */
-    socket.emit('updatePointGaugeANDBlockPointInput', socket.player.point);
+    socket.emit('gameMsg','Updated your Point Gauge : ' + socket.player.point +' and Please don\'t input');
     
     /* 포인트 입력 플레이어가 선공일 때 */
     if (gameObject.isFirstPlayer(socket.player)) {
@@ -132,26 +133,24 @@ io.on('connection', function (socket) {
         wait2SecondsAndProceedRound(gameObject.getRoundInfo);
       // 비겼으면,
       } else if (isFinish == 'D') {
-        io.sockets.in(socket.room.roomName).emit('Draw');
+        io.sockets.in(socket.room.roomName).emit('gameMsg','Draw');
         gameObject.initializeDrawGame();
 
         var drawFirstPlayer = gameObject.getFirstPlayer();
         
         // 2초 후에 시작
         setTimeout(function() {
-          io.sockets.in(socket.room.roomName).emit('DrawStart', gameObject.getRoundInfo());
-
+          io.sockets.in(socket.room.roomName).emit('gameMsg','Draw game start!');
+          gameObject.getRoundInfo();
           settingFirstPlayer(drawFirstPlayer);
 
         },2000);
 
       // 게임이 끝났다면,
       } else {
-        io.to(isFinish.socketId).emit('gameOverWinner', isFinish.name);
-        io.to(isFinish.opponent.socketId).emit('gameOverLoser', isFinish.opponent.name);
+        io.to(isFinish.socketId).emit('gameMsg','Game Over! You win!');
+        io.to(isFinish.opponent.socketId).emit('gameMsg', 'Game Over! You lose!');
       }
-
-
 
     }
   });
@@ -165,21 +164,21 @@ io.on('connection', function (socket) {
   /* sendStart 가 on 되고, 각 라운드의 선공/후공 세팅하는 부분에서,
   선공을 세팅하는 함수를 호출하면 실행되는 곳 */
   function settingFirstPlayer(firstPlayer) {
-    io.to(firstPlayer.socketId).emit('firstPlayerSetting');
-    io.to(firstPlayer.socketId).emit('showModal', 'It`s your turn. Input the Point.');
+    io.to(firstPlayer.socketId).emit('gameMsg','You are first player');
+    io.to(firstPlayer.socketId).emit('gameMsg', 'It`s your turn. Input the Point.');
     
     io.sockets.in(socket.room.roomName).emit('setRemainingTime', gameResource.INIT_TIME);
     
     this.settingTimer(firstPlayer);
     
-    io.to(firstPlayer.opponenet.socketId).emit('SecondPlayerSetting');
+    io.to(firstPlayer.opponenet.socketId).emit('gameMsg','You are second player');
  
   }
 
   /* 후공 세팅 */
   function settingSecondPlayer(secondPlayer) {
-    io.to(secondPlayer.socketId).emit('showModal', 'It`s your turn. Input the Point.');
-    io.to(secondPlayer.socketId).emit('deleteBlock');
+    io.to(secondPlayer.socketId).emit('gameMsg', 'It`s your turn. Input the Point.');
+    io.to(secondPlayer.socketId).emit('deletedBlock');
 
     this.settingTimer(secondPlayer);
   }
@@ -206,8 +205,8 @@ io.on('connection', function (socket) {
   
   /* 라운드가 끝난 뒤, 라운드의 정보를 보내는 함수 */
   function sendRoundResult (winner, round){
-    io.to(winner.socketId).emit('youAreWinner',round + '라운드 결과 : 승리');
-    io.to(winner.opponent.socketId).emit('youAreLoser',round + '라운드 결과 : 패배');
+    io.to(winner.socketId).emit('gameMsg','Round' + round + ' : You win!');
+    io.to(winner.opponent.socketId).emit('gameMsg','Round' + ' : You lose!');
   }
  
   /* 라운드가 끝난 뒤, 다음 라운드를 진행하는 함수 */
