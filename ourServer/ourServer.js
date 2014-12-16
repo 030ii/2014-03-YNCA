@@ -109,7 +109,7 @@ io.on('connection', function (socket) {
     /* 상대 플레이어에게 현재 플레이어의 정보를 넘겨준다 */
     
     /* 포인트 게이지를 업데이트 / 포인트 입력창을 Block 처리한다 */
-    socket.emit('gameMsg','Updated your Point Gauge : ' + socket.player.point +' and Please don\'t input');
+    socket.emit('updatePointGaugeANDBlockPointInput', socket.player.point);
     
     /* 포인트 입력 플레이어가 선공일 때 */
     if (gameObject.isFirstPlayer(socket.player)) {
@@ -140,8 +140,7 @@ io.on('connection', function (socket) {
         
         // 2초 후에 시작
         setTimeout(function() {
-          io.sockets.in(socket.room.roomName).emit('gameMsg','Draw game start!');
-          gameObject.getRoundInfo();
+          io.sockets.in(socket.room.roomName).emit('Draw', gameObject.getRoundInfo());
           settingFirstPlayer(drawFirstPlayer);
 
         },2000);
@@ -164,13 +163,14 @@ io.on('connection', function (socket) {
   /* sendStart 가 on 되고, 각 라운드의 선공/후공 세팅하는 부분에서,
   선공을 세팅하는 함수를 호출하면 실행되는 곳 */
   function settingFirstPlayer(firstPlayer) {
-    io.to(firstPlayer.socketId).emit('gameMsg','You are first player');
+    io.to(firstPlayer.socketId).emit('firstPlayerSetting');
     io.to(firstPlayer.socketId).emit('gameMsg', 'It`s your turn. Input the Point.');
     
     io.sockets.in(socket.room.roomName).emit('setRemainingTime', gameResource.INIT_TIME);
     
     this.settingTimer(firstPlayer);
     
+    io.to(firstPlayer.opponenet.socketId).emit('secondPlayerSetting');
     io.to(firstPlayer.opponenet.socketId).emit('gameMsg','You are second player');
  
   }
