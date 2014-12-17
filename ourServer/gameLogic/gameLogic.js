@@ -95,7 +95,7 @@ function Game (player1, player2) {
   }
   
   this.getFirstPlayer = function () {
-    if(round == STATIC.START_ROUND){
+    if(round == STATIC.START_ROUND && !firstPlayer){
       var random = getRandomInt(1,2);
       if (random == 1) {
         firstPlayer = player1;
@@ -244,10 +244,19 @@ function Game (player1, player2) {
   this.initializeDrawGame = function () {
     round = STATIC.START_ROUND;
     TOTAL_ROUND = STATIC.DRAW_ROUND;
+    firstPlayer = null;
     roundWinner = null;
     drawRound = 0;
     player1.setScoreAndPoint(STATIC.INIT_SCORE, STATIC.DRAW_POINT);
     player2.setScoreAndPoint(STATIC.INIT_SCORE, STATIC.DRAW_POINT);
+  }
+
+  this.getOpponent = function (player) {
+    if (player == player1) {
+      return player2;
+    } else{
+      return player1;
+    }
   }
 }
 
@@ -280,10 +289,6 @@ exports.initialize = function () {
   // init player
   var player1 = new Player(STATIC.INIT_SCORE, STATIC.INIT_POINT);
   var player2 = new Player(STATIC.INIT_SCORE, STATIC.INIT_POINT);
-  
-  // opponent setting
-  player1.opponent = player2;
-  player2.opponent = player1;
   
   return new Game(player1, player2);
 }
