@@ -4,14 +4,24 @@ var STATIC = {
   INIT_SCORE : 0,
   TOTAL_ROUND : 9,
   DRAW_ROUND : 3,
-  START_ROUND : 1
+  START_ROUND : 1,
+  GAUGE_5 : 5,
+  GAUGE_4 : 4,
+  GAUGE_3 : 3,
+  GAUGE_2 : 2,
+  GAUGE_1 : 1,
+  COLOR_BLACK : 'B',
+  COLOR_WHITE : 'W',
+  GAME_IS_DRAW : 'D'
 }
 
 function Game (player1, player2) {
-  var round = START_ROUND;
+  var round = STATIC.START_ROUND;
   var TOTAL_ROUND = STATIC.TOTAL_ROUND;
-  var roundWinner;
+  var roundWinner = null;
+  var drawRound = 0;
   var firstPlayer;
+  var currentPlayer;
   
   this.initializePlayerSocketId = function (player1SocketId, player2SocketId) {
     player1.socketId = player1SocketId;
@@ -56,39 +66,52 @@ function Game (player1, player2) {
 
   function getGaugeFromPlayer(player) {
     if(player.point >= 80){
-      return 5;
+      return STATIC.GAUGE_5;
     }
     else if(player.point >= 60){
-      return 4;
+      return STATIC.GAUGE_4;
     }
     else if (player.point >=40){
-      return 3;
+      return STATIC.GAUGE_3;
     }
     else if(player.point >=20){
-      return 2;
+      return STATIC.GAUGE_2;
     }
     else{
-      return 1;
+      return STATIC.GAUGE_1;
     }
+  }
+
+  function getColorFromPlayer(player) {
+    if (player.inputPoint > 9) {
+      return COLOR_WHITE;
+    } else {
+      return COLOR_BLACK;
+    }
+  }
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   
   this.getFirstPlayer = function () {
-    if( round == STATIC.START_ROUND){
-      var random = (function getRandomInt(min, max) {
-			  return Math.floor(Math.random() * (max - min + 1)) + min
-			})(1,2);
-      
-      if(random==1) {
+    if(round == STATIC.START_ROUND){
+      var random = getRandomInt(1,2);
+      if (random == 1) {
         firstPlayer = player1;
-        
-      }
-      else {
+      } else {
         firstPlayer = player2;
       }
     }
-    else{
-      
+
+    if (!firstPlayer) {
+      console.log('No First Player Error');
+      return;
     }
+
+    currentPlayer = firstPlayer;
+
+    return firstPlayer;
   }
   
 //   Return Object Detail : {
@@ -98,56 +121,133 @@ function Game (player1, player2) {
 //   }
   this.inputPoint = function (player, point) {
     var returnObj = {};
-    
-    if (isValidPoint(player, point)) {
-      var parsedPoint = parseInt(point, 10);
-      player.inputPoint(parsedPoint);
-      
-    } else {
-      
+
+    if (currentPlayer !== player) {
+      returnObj.status = 401;
+      returnObj.message = 'Invalid Player';
+
+      return returnObj;
     }
-    
+
+    if (!isValidPoint(player, point)) {
+      returnObj.status = 400;
+      returnObj.message = 'Invalid Point';
+
+      return returnObj;
+    }
+
+    var parsedPoint = parseInt(point, 10);
+    player.inputPoint(parsedPoint);
+
+    returnObj.status = 200;
+    returnObj.message = 'Success';
+    returnObj.inputResult = {
+      round : round,
+      remainingPoint : player.point,
+      color : getColorFromPlayer(player),
+      gauge : getGaugeFromPlayer(player);
+    }
+
     return returnObj;
   }
   
   function isValidPoint (player, point) {
     var parsedPoint = parseInt(point, 10);
-		if(point == parsedPoint && parsedPoint >= 0 && player.point - parsedPoint >= 0) 
-			return true;
-
-		return false;
-  }
-  
-  this.finishRound = function () {
-    //이번 라운드에서 각 플레이어 마다 받은 포인트
-    if(player1.inputPoint > player2.inputPoint){
-      roundWinner = player1;
-    }
-    else if(player1.inputPoint==player2.inputPoint){
-      return;
-    }
-    else{
-      roundWinner = player2;
-    }
-    if (현 라운드 <9){
-      proceedRound();
-    }
+    return (point == parsedPoint && parsedPoint >= 0 && player.point - parsedPoint >= 0);
   }
   
   this.isFinished = function () {
-    
+    var winScore = parseInt((TOTAL_ROUND - drawRound)/2) + 1;
+    if (player1.score == winScore) {
+      return player1;
+    } else if (this.player2.score == winScore) {
+      return player2;
+    } else if (round == TOTAL_ROUND) {
+      if (player1.score > player2.score) {
+        return player1;
+      } else if (player1.score < player2.score) {
+        return player2;
+      } else {
+        return STATIC.GAME_IS_DRAW;
+      }
+    }
+
+    return null;
   }
   
   this.getRoundInfo = function () {
-  
-  }
-  
-  this.proceedRound = function () {
+    var returnObj = {};
 
+    if (!currentRoundIsFinished()) {
+      returnObj.status = 400;
+      returnObj.message = 'Current Round is not Finished';
+
+      return returnObj;
+    }
+
+    finishRound();
+
+    returnObj.status = 200;
+    returnObj.message = 'Round ' + round + ' is Finished';
+    returnObj.roundInfo  = {
+      round : round,
+      winner : roundWinner,
+      p1Score : player1.score,
+      p2Score : player2,score
+    }
+
+    return returnObj;
+  }
+
+  function currentRoundIsFinished () {
+    return player1.inputPoint && player2.inputPoint;
+  }
+
+  function finishRound () {
+    if (player1.inputPoint < player2.inputPoint) {
+      roundWinner = player2;
+      player2.score++;
+    } else if (player1.inputPoint > player2.inputPoint) {
+      roundWinner = player1;
+      player1.score++;
+    } else {
+      roundWinner = null;
+      drawRound++;
+    }
+  }
+
+  this.proceedRound = function () {
+    // 플레이어 인풋 포인트 초기화
+    player1.inputPoint = null;
+    player2.inputPoint = null;
+
+    // 다음 선공 플레이어 세팅
+    if (roundWinner) {
+      firstPlayer = roundWinner;
+    } else {
+      firstPlayer = firstPlayer.opponent;
+    }
+
+    // 라운드 위너 초기화
+    roundWinner = null;
+
+    // 라운드 진행
+    round++;
+
+    return round;
   }
   
   this.over = function () {
-    
+    for (var attr in this) delete myObject[attr];
+  }
+
+  this.initializeDrawGame = function () {
+    round = STATIC.START_ROUND;
+    TOTAL_ROUND = STATIC.DRAW_ROUND;
+    roundWinner = null;
+    drawRound = 0;
+    player1.setScoreAndPoint(STATIC.INIT_SCORE, STATIC.DRAW_POINT);
+    player2.setScoreAndPoint(STATIC.INIT_SCORE, STATIC.DRAW_POINT);
   }
 }
 
@@ -157,26 +257,22 @@ function Game (player1, player2) {
 //    opponent : Player Object,
 //    socketId : String(서버에서 직접입력)
 // }
-function Player (INIT_SCORE, INIT_POINT) {
+function Player (score, point) {
+  var INIT_SCORE = score;
+  var INIT_POINT = point;
+
   this.score = INIT_SCORE;
   this.point = INIT_POINT;
   this.inputPoint = null;
   
-  this.initScore = function () {
-    this.score = 0;
-  }
-  
-  this.initPoint = function (INIT_POINT) {
-    this.point = INIT_POINT;
+  this.setScoreAndPoint = function (score, point) {
+    this.score = score;
+    this.point = point;
   }
   
   this.inputPoint = function (inputPoint) {
-    if(this.point - inputPoint >= 0) {
       this.inputPoint = inputPoint;
-      return true;
-    } else {
-      return false;
-    }
+      this.point = this.point - inputPoint;
   }
 }
 
