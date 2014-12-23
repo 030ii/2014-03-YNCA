@@ -1,0 +1,85 @@
+@-webkit-keyframes shake {
+    from {
+        left:0px;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0px;
+    }
+}
+@-moz-keyframes shake {
+    from {
+        left:0px;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0px;
+    }
+}
+@-o-keyframes shake {
+    from {
+        left:0px;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0px;
+    }
+}
+@keyframes shake {
+    from {
+        left:0px;
+    }
+    25% {
+        left:-20px;
+    }
+    75% {
+        left:+20px;
+    }
+    to {
+        left:0px;
+    }
+}
+ #box {
+    background:#000;
+    border:1px solid #333;
+    border-radius:2px;
+    margin:30px auto;
+    padding:40px 10px;
+    position:relative;
+    text-align:center;
+    width:220px;
+}
+#outerBox #box.wrong {
+    border-color:#FFF;
+    -webkit-animation: shake .1s linear 2;
+    -moz-animation: shake .1s linear 2;
+    -o-animation: shake .1s linear 2;
+    animation: shake .1s linear 2;
+}
+#outerBox # input {
+    margin-bottom:15px;
+    padding:2px 5px;
+}
+#outerBox #input[type='submit'] {
+    border:1px solid #666;
+    cursor:pointer;
+    outline:0;
+    padding:4px 8px;
+    position:absolute;
+    right:40px;
+}

@@ -1,0 +1,29 @@
+#puff {
+    cursor:pointer;
+    display:none;
+    position:absolute;
+    height:32px;
+    width:32px;
+    background: url(http://i.imgur.com/wvPeK.png) no-repeat;
+}
+/*ul{padding:0;
+    font-family:arial
+}
+
+li{
+    list-style:none;
+    background: #eee;
+    border:1px solid #ddd;
+    cursor:pointer;
+    float:left;
+    margin:5px;
+    padding:15px;
+}*/
+
+tr{
+    background-color: #ED145B;
+    font-family: arial;
+    color:#fff;
+    width:100px;
+    height:30px;
+}

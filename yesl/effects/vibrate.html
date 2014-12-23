@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="vibrate.css">
+	<title>Document</title>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+<div id="outerBox" >
+    <div id="box">
+        <input type="number" name="inputNum" id="inputNum" />
+        <br/>
+        <input type="submit" name="send" id="send" value="Send" />
+    </div>
+  </div>
+<script>
+$(function () {
+    $(function () {
+        $("#outerBox #send").on("click", function () {
+            $("#box").addClass("wrong");
+        });
+
+    $("#outerBox #box").on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
+            $(this).removeClass("wrong");
+        });
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<link rel="stylesheet" href="puff.css">
+</head>
+<body>
+	<div id="puff"></div>
+	<table>	
+	<tr><td>80-99</td></tr>
+	<tr><td>60-79</td></tr>
+	<tr><td>40-59</td></tr>
+	<tr><td>20-39</td></tr>
+	<tr><td>0-19</td></tr>
+	</table>
+		<!-- <ul>
+		    <li>discard</li>
+		    <li>discard</li>
+		    <li>discard</li>
+		    <li>discard</li>
+		    <li>discard</li>
+		</ul> -->
+<script>
+	function animatePoof() {
+    var bgTop = 0,
+        frame = 0,
+        frames = 6,
+        frameSize = 32,
+        frameRate = 80,
+        puff = $('#puff');
+    var animate = function(){
+        if(frame < frames){
+            puff.css({
+                backgroundPosition: "0 "+bgTop+"px"
+            });
+            bgTop = bgTop - frameSize;
+            frame++;
+            setTimeout(animate, frameRate);
+        }
+    };
+    
+     animate(); 
+    setTimeout("$('#puff').hide()", frames * frameRate);
+}
+$(function() {
+    $('tr').click(function(e) {
+        var xOffset = 24;
+        var yOffset = 24;
+        $(this).fadeOut('fast');
+        $('#puff').css({
+            left: e.pageX - xOffset + 'px',
+            top: e.pageY - yOffset + 'px'
+        }).show();
+        animatePoof();
+    });
+});
+</script>
+</body>
+</html>
