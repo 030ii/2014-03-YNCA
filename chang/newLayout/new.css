@@ -18,6 +18,8 @@ body {
 	height: 50px;
 	background-color: rgba(0, 0, 0, 0.5);
 	position: relative;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
 }
 
 .top div {
@@ -89,6 +91,10 @@ body {
 	height: 31px;
 }
 
+.bottomLeftRadius {
+	border-bottom-left-radius: 7px;
+}
+
 .main {
 	float: left;
 	width: 738px;
@@ -97,6 +103,7 @@ body {
 	margin-top: 10px;
 	background-color: rgba(118,118,118,0.5);
 	color: #fff;
+	border-bottom-right-radius: 7px;
 }
 
 .leftOfMain {
