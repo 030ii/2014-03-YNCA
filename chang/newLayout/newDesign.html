@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>Black and White Game</title>
 	<link rel="stylesheet" type="text/css" href="new.css"/>
-	<link rel="stylesheet" href="timer.css" media="screen" type="text/css" />
+	<link rel="stylesheet" href="timerstyle.css" media="screen" type="text/css" />
 </head>
 <body>
 	<div id ="wrapper">
@@ -49,9 +49,8 @@
 			<!-- left of main -->
 			<div class = "leftOfMain">
 				<div class = "roundNum" id ="flag">ROUND 1</div>
-				<div class = "timerLocation">
-					<div class = "test">timer 자리</div>
-				<!--<div class='radialtimer' id='timer'></div>-->
+				<div id='timer'>
+					<p id="progress" class="red">0</p>
 				</div>
 				<div class = "possiblePointField">
 					<div class = "possiblePointText">남은포인트</div>
@@ -126,6 +125,7 @@
 		</div>
 		<!-- main end -->
 	</div>
-	<script type="text/javascript" src="./timerindex.js"></script>
+	<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+	<script type="text/javascript" src="./thistimerindex.js"></script>
 </body>
 </html>
