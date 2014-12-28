@@ -10,11 +10,16 @@ function start(){
 	interval = setInterval(function(){
 		x--;
 		if(x == 0){
+			$('#progress').removeClass('seconds');
 			 clearInterval(interval);
 			 setTimeout(function(){
 				 x = 60;
 			 	start();
 			 },1000)
+		}
+
+		if(x == 15){
+			$('#progress').addClass('seconds');
 		}
 		
 		var top = x*(525-105)/100;

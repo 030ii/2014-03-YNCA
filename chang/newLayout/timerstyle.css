@@ -1,5 +1,26 @@
+@-webkit-keyframes beat {
+    0% {-webkit-transform: scale(1); -webkit-box-shadow:0 0 40px #d5093c;}
+    50% {-webkit-transform: scale(1.1); -webkit-box-shadow:0 0 70px #d5093c;}
+    100% {-webkit-transform: scale(1); -webkit-box-shadow:0 0 40px #d5093c;}
+}
+
+/* 15초 남았을 때부터 나오게 설정하면 될 듯 */
+.seconds {
+    position:absolute;
+    z-index:2;
+    background: yellow;
+    -webkit-animation: beat 0.7s ease 0s infinite normal;
+    -moz-animation: beat 0.7s ease  0s infinite normal;
+    animation: beat 0.7s ease 0s infinite normal;
+    width:120px;
+    height:120px;
+    line-height:120px;
+    text-align: center;
+    border-radius: 120px;
+}
+
 #timer{
-	margin:-10px 20px;
+	margin:-10px 50px;
 }
 
 #progress{
