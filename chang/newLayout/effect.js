@@ -23,15 +23,16 @@ function animatePoof() {
 
 $(function() {
     $('td').click(function(e) {
-        var xOffset = 24;
-        var yOffset = 24;
+        var xOffset = $(".main").offset().left;
+        var yOffset = $(".main").offset().top + 10;
         $(this).css({
             opacity: 0
         }).show();
         
+
         $('#puff').css({
-            // left: e.pageX - xOffset + 'px',
-            // top: e.pageY - yOffset + 'px'
+            left: e.pageX - xOffset + 'px',
+            top: e.pageY - yOffset + 'px'
         }).show();
 
         animatePoof();

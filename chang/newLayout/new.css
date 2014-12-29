@@ -11,6 +11,7 @@ body {
 	width: 960px;
 	height: 680px;
 	margin: 0 auto;
+	position: relative;
 }
 
 .top {
@@ -104,6 +105,7 @@ body {
 	background-color: rgba(118,118,118,0.5);
 	color: #fff;
 	border-bottom-right-radius: 7px;
+	position: relative;
 }
 
 .leftOfMain {
@@ -165,6 +167,10 @@ body {
 .BNWbyRound , td{
 	border: 1px solid black;
 	border-collapse: collapse;
+}
+
+.BNWwrapper {
+	position: relative;
 }
 
 td {
