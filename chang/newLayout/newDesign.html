@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>Black and White Game</title>
 	<link rel="stylesheet" type="text/css" href="new.css"/>
+	<link rel="stylesheet" type="text/css" href="effect.css"/>
 	<link rel="stylesheet" href="timerstyle.css" media="screen" type="text/css" />
 </head>
 <body>
@@ -61,9 +62,10 @@
 
 			<!-- right of main -->
 			<div class = "rightOfMain">
-				<div class = "anotherPlayerZone">
+				<div class = "urZone">
 					<div class = "assistance">
 						<div class = "nickname">CHANG</div>
+						<!-- <div id="puff"></div>	 -->
 						<table class = "BNWbyRound">
 							<td>1R</td>
 							<td>2R</td>
@@ -76,8 +78,9 @@
 						</table>
 					</div>
 					<div class = "status">
-						<div class = "score">0</div>
-						<div class = "color" id = "anotherPlayerColor"></div>
+						<div class = "score" id="urScore">0</div>
+						<div class = "color" id = "urColor"></div>
+						<!-- <div id="puff"></div>	 -->
 						<table class = "pointGauge">
 							<td>99 ~ 80</td>
 							<td>79 ~ 60</td>
@@ -90,10 +93,11 @@
 
 				<div class = "notiMessage">안내메세지</div>
 
-				<div class ="thisPlayerZone">
+				<div class ="myZone">
 					<div class = "status">
-						<div class = "score">0</div>
-						<div class = " color" id = "thisPlayerColor"></div>
+						<div class = "score" id="myScore">0</div>
+						<div class = "color" id ="myColor"></div>
+						<!-- <div id="puff"></div>	 -->
 						<table class = "pointGauge">
 							<td>99 ~ 80</td>
 							<td>79 ~ 60</td>
@@ -108,6 +112,7 @@
 					</div>
 					<div class = "assistance">
 						<div class = "nickname">YEAH</div>
+						<!-- <div id="puff"></div>	 -->
 						<table class = "BNWbyRound">
 							<td>1R</td>
 							<td>2R</td>
@@ -127,5 +132,6 @@
 	</div>
 	<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 	<script type="text/javascript" src="./thistimerindex.js"></script>
+	<script type="text/javascript" src="./effect.js"></script>
 </body>
 </html>

@@ -168,6 +168,7 @@ body {
 }
 
 td {
+	background-color: #ED145B;
 	padding: 5px 5px;
 }
 
@@ -216,7 +217,7 @@ td {
 	background-color: #8cbdea;
 }
 
-.thisPlayerZone{
+.myZone{
 	clear: both;
 }
 
@@ -227,12 +228,12 @@ td {
 	margin-left: 30px;
 }
 
-.thisPlayerZone .inputText{
+.myZone .inputText{
 	height: 40px;
 	width: 180px;
 }
 
-.thisPlayerZone .sendButton{
+.myZone .sendButton{
 	width: 70px;
 	height: 40px;
 	box-sizing: content-box;
