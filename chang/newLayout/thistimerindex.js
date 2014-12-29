@@ -1,21 +1,22 @@
 var interval;
-var x = 60;
-$(function(){
-	var c1 = 'red';
-	$('#progress').html('<span></span><strong>'+x+'</strong>');
-	start();
-})
 
-function start(){
+function stopCountDown() {
+	clearInterval(interval);
+	$('#progress').html('');
+}
+
+function startCountDown(){
+	var x = 60;
+	var c1 = 'red';
+
+	$('#progress').html('<span></span><strong>'+x+'</strong>');
+	
 	interval = setInterval(function(){
 		x--;
 		if(x == 0){
 			$('#progress').removeClass('seconds');
-			 clearInterval(interval);
-			 setTimeout(function(){
-				 x = 60;
-			 	start();
-			 },1000)
+
+			 stopCountDown();
 		}
 
 		if(x == 15){
@@ -39,5 +40,5 @@ function start(){
 		})
 		
 		$('#progress strong').html(x);
-	},600)
+	},1000)
 }
