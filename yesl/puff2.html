@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="puff.css">
+</head>
+<body>
+    <table> 
+        <tr>
+            <td>asdf</td>
+            <td>asdf</td>
+            <td>asdf</td>
+            <td>asdf</td>
+            <td>asdf</td>
+        </tr>
+    </table>
+    <input type="text">
+<script>
+	function animatePuff(elPuff) {
+        var bgTop = 0,
+            frame = 0,
+            frames = 6,
+            frameSize = 32,
+            frameRate = 80;
+
+        var animate = function(){
+            if(frame < frames){
+                elPuff.style.backgroundPosition = "0 "+bgTop+"px"
+                bgTop = bgTop - frameSize;
+                frame++;
+                setTimeout(animate, frameRate);
+            }
+        };
+        
+        animate(); 
+
+        setTimeout(function() {
+            elPuff.parentElement.removeChild(elPuff);
+        }, frames * frameRate);
+    }
+
+    function puffCell (elCell) {
+        elCell.style.position = 'relative';
+        var elPuff = document.createElement('div');
+        elPuff.classList.add('puff');
+
+        elCell.appendChild(elPuff);
+
+        elCell.style.opacity = 0;
+        animatePuff(elPuff);
+    }
+
+    function updateScoreGauge (num, elGaugeBoard) {
+        var pointRangeEl = elGaugeBoard.querySelectorAll('td');
+        var length = pointRangeEl.length;
+        var startingPoint = 5 - num;
+
+        for (var i = 0; i < length; i++) {
+            if (i < startingPoint) {
+                puffCell(pointRangeEl[i]);
+            }
+        };
+    }
+</script>
+</body>
+</html>
