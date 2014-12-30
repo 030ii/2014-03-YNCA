@@ -5,7 +5,7 @@ function Modal () {
     this.show = function (oInfo) {
         if (!overlay) {
             var wrapper = document.createElement('div');
-            wrapper.innerHTML = '<div id="modal-overlay"><div id="modal"><div class="title">title</div><div class="content">content</div></div></div>';
+            wrapper.innerHTML = '<div id="modal-overlay"><div id="modal"><div class="title"></div><div class="content"></div></div></div>';
             body.appendChild(wrapper.childNodes[0]);
 
             overlay = document.getElementById('modal-overlay');
@@ -30,30 +30,26 @@ function Modal () {
         switch(move) {
             case 'down':
                 modal.classList.add('top');
-                modal.classList.add('fade');
                 setTimeout(function () {
-                    modal.classList.remove('top');
+                    modal.className = 'fade';
                 }, 0);
                 break;
             case 'up':
                 modal.classList.add('bottom');
-                modal.classList.add('fade');
                 setTimeout(function () {
-                    modal.classList.remove('bottom');
+                    modal.className = 'fade';
                 }, 0);
                 break;
             case 'right':
                 modal.classList.add('left');
-                modal.classList.add('fade');
                 setTimeout(function () {
-                    modal.classList.remove('left');
+                    modal.className = 'fade';
                 }, 0);
                 break;
             case 'left':
                 modal.classList.add('right');
-                modal.classList.add('fade');
                 setTimeout(function () {
-                    modal.classList.remove('right');
+                    modal.className = 'fade';
                 }, 0);
                 break;
         }
@@ -79,7 +75,7 @@ function Modal () {
         }
 
         setTimeout(function () {
-            modal.classList.remove('fade');
+            modal.className = '';
             overlay.style.visibility = "hidden";
         }, 300);
         overlay.style.opacity = 0;

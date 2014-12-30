@@ -1,0 +1,19 @@
+<config>
+  <name>HelloWebRTCWorld</name>
+  <author email="damon.oehlman@nicta.com.au" href="http://rtc.io">Damon Oehlman</author>
+  <content path="/" src="index.html"/>
+  <bundle domain="io.rtc.helloworld" version="1.0" />
+  <ios>
+    <build version="1.2" sdkversion="7.1" config="release"/>
+    <icons>
+      <icon size="29x29" file="icons/Icon-Small.png" idiom="ipad" />
+      <icon size="40x40" file="icons/Icon-Small-40.png" idiom="all" />
+      <icon size="58x58" file="icons/Icon-Small@2x.png" idiom="iphone" />
+      <icon size="58x58" file="icons/Icon-Small@2x.png" idiom="ipad" />
+      <icon size="76x76" file="icons/Icon-76.png" idiom="ipad" />
+      <icon size="80x80" file="icons/Icon-Small-40@2x.png" idiom="all" />
+      <icon size="120x120" file="icons/Icon-60@2x.png" idiom="iphone" />
+      <icon size="152x152" file="icons/Icon-76@2x.png" idiom="ipad" />
+    </icons>
+  </ios>
+</config>

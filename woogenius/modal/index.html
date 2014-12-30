@@ -1,18 +1,38 @@
 <html>
-<head>modal tutorial</head>
-<!-- 임포트 -->
+<head>
+    <title>Simple Modal Example</title>
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <link rel="stylesheet" href="modal.css">
+<style>
+    body {
+        text-align: center;
+        line-height: 3;
+    }
+</style>
 <body>
-    <!-- 임포트 -->
+    <h1>Simple Modal Example</h1>
+    title : <input id="title" type="text" /> <br />
+    content : <input id="content" type="text" /> <br />
+    <input type="radio" name="radioBtn" value="up" />Slide Up
+    <input type="radio" name="radioBtn" value="down" />Slide Down
+    <input type="radio" name="radioBtn" value="left" />Slide Left
+    <input type="radio" name="radioBtn" value="right" />Slide Right <br />
+    <button onclick="showModal()">Show Modal</button>
+
+
     <script src="modal.js"></script>
     <script>
-    var modal = new Modal();
-    modal.show({
-        title: 'title',
-        content: 'content',
-        // up, down, right, left
-        move: 'up'
-    });
+        var modal = new Modal();
+
+        function showModal () {
+            modal.show({
+                title: document.getElementById('title').value,
+                content: document.getElementById('content').value + ' <br> <button onclick="modal.hide()">hide</button>',
+                move: $('input[name="radioBtn"]:checked').val()
+            });
+        }
     </script>
+
 </body>
 </html>
