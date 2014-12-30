@@ -17,6 +17,6 @@ io.on('connection', function (socket) {
 	});
 });
 
-http.listen(3000, function () {
+http.listen(3001, function () {
 	console.log('Express server listening on port 3000');
 });

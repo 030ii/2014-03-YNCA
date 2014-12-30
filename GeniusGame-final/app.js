@@ -74,7 +74,7 @@ io.on('connection', function (socket) {
 		var firstPlayer = game.getFirstPlayerAtFirstTime();
 
 		// 게임시작
-		io.sockets.in(socket.room.roomName).emit('gameStart', game.getGameInfoForInit());
+		io.sockets.in(socket.room.roomName).emit('gameStart', game.getGameInfoForInit(), socket.room.roomName);
 
 		// 자기이름 컬러표시
 		io.to(game.player1.socketId).emit('checkMyName', '.player1Name', game.player1.num);

@@ -10,6 +10,10 @@
     }
 
     conference = RTC({
+      constraints: {
+        video: true,
+        audio: false
+      },
       // use the rtc.io development and testing switchboard
       signaller: 'https://switchboard.rtc.io',
 
@@ -21,12 +25,11 @@
         { url: 'stun:stun4.l.google.com:19302' }
       ],
 
-      room: 'helloworld:' + room,
+      room: 'bnw2online:' + room,
 
       // we want this to work on iOS as well so we will use
       // the rtc-plugin-nicta-ios plugin so we can use the
       // build.rtc.io to create a native iOS app
-      plugins: [ RTC.IOS ]
     });
   }
 
@@ -53,7 +56,7 @@
   }
 
   function updateRoom() {
-    room = location.hash = roomInput.value;
+    room = roomInput.value;
     if (room) {
       connectToRoom();
     }

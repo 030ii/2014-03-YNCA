@@ -2,6 +2,10 @@ var socket = io();
 var modal = new Modal();
 
 window.onload = function () {
+	$('.exit').on('click', function () {
+		window.location.reload(true);
+	});
+
 	gc.showNotiModal({
 		title : '<img src="./img/logo.png" width="200px" alt="" />',
 		content: '이름을 입력하세요.<br /><input type="text" id="inputName" /><button id="inputNameBtn">입력</button>'
@@ -96,8 +100,13 @@ socket.on('player2Connected', function (p1Name, p2Name){
 	initScore : score for init,
 	initPointRange : point range for init
 }*/
-socket.on("gameStart", function (gameInfo) {
+socket.on("gameStart", function (gameInfo, roomName) {
 	console.log("게임이 시작됩니다.");
+
+	if (!gc.conference) {
+		gc.connectToRoom(roomName);
+	}
+
 	gc.showNotiModal({
 		content: "<p>게임이 시작됩니다.</p>"});
 

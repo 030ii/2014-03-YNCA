@@ -76,21 +76,21 @@ var	 gc = {
 		var msg = "잘못된 입력, 다시 입력하여 주세요";
 
 		function vibrate(el){
-		    el.classList.add('shake');
+			el.classList.add('shake');
 		}
 		function alertMsg(el, msg) {
-		    setMessage(el, msg);
-		    debugger;
-		    el.classList.add('visible');
+			setMessage(el, msg);
+			debugger;
+			el.classList.add('visible');
 		}
 
 		function setMessage(el, msg) {
-		    el.innerText = msg;
+			el.innerText = msg;
 		}
 
-	    var bubbleEl = document.querySelector('.bubble');
-	    vibrate(inputEl);
-	    alertMsg(bubbleEl, msg);
+		var bubbleEl = document.querySelector('.bubble');
+		vibrate(inputEl);
+		alertMsg(bubbleEl, msg);
 	},
 	showNotiModal : function (oInfo) {
 		if (!oInfo.title) {
@@ -228,5 +228,24 @@ var	 gc = {
 		}
 		chatMsgListEl.innerHTML += inputString;
 		chatMsgEl.scrollTop = chatMsgEl.scrollHeight;
+	},
+	connectToRoom : function (room) {
+		this.conference = RTC({
+			constraints: {
+					video: true,
+					audio: false
+				},
+		    signaller: 'https://switchboard.rtc.io',
+
+				ice: [
+					{ url: 'stun:stun1.l.google.com:19302' },
+					{ url: 'stun:stun2.l.google.com:19302' },
+					{ url: 'stun:stun3.l.google.com:19302' },
+					{ url: 'stun:stun4.l.google.com:19302' }
+				],
+
+			room: 'bnw2online:' + room
+		});
+		console.log('bnw2online:' + room);
 	}
 }
