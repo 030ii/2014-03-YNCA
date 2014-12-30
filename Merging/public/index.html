@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Black and White Game</title>
+	<link rel="stylesheet" type="text/css" href="new.css"/>
+	<link rel="stylesheet" href="timerstyle.css" media="screen" type="text/css" />
+</head>
+<body>
+	<div id ="wrapper">
+		<!-- top bar -->
+		<header>
+			<div class = "top">
+				<div>ROOM 1</div> <!-- room number -->
+				<button>나가기</button> <!-- 나가기 button -->
+			</div>
+		</header>
+		<!-- top bar end -->
+
+		<!-- left -->
+		<div class = "left">
+			<!-- another player info -->
+			<div class = "playerInfo">
+				<div class = "playerNickname">CHANG</div>
+				<div class = "playerLevel">level 3</div>
+				<div class = "playerRate">70% / 10전 7승 3패</div>
+			</div> 
+
+			<!-- chatting -->
+			<div class ="chatting">
+				<div class='under-the-chatting'>
+					<input type='text' class='inputText'>
+					<button class='sendButton'>SEND</button>
+				</div>
+			</div>
+			
+			<!-- this player(me) info -->
+			<div class = "playerInfo bottomLeftRadius">
+				<div class = "playerNickname">YEAH</div>
+				<div class = "playerLevel">level 5</div>
+				<div class = "playerRate">50% / 30전 15승 15패</div>
+			
+			</div> 
+		</div>
+		<!-- left end -->
+
+		<!-- main -->
+		<div class = "main">
+			<!-- left of main -->
+			<div class = "leftOfMain">
+				<div class = "roundNum" id ="flag">ROUND 1</div>
+				<div id='timer'>
+					<p id="progress" class="red">0</p>
+				</div>
+				<div class = "possiblePointField">
+					<div class = "possiblePointText">남은포인트</div>
+					<div class = "possiblePoint">99</div>
+				</div>
+			</div>
+			<!-- left of main end -->
+
+			<!-- right of main -->
+			<div class = "rightOfMain">
+				<div class = "otherPlayerZone">
+					<div class = "assistance">
+						<div class = "nickname">CHANG</div>
+						<table class = "BNWbyRound">
+							<td>1R</td>
+							<td>2R</td>
+							<td>3R</td>
+							<td>4R</td>
+							<td>5R</td>
+							<td>6R</td>
+							<td>7R</td>
+							<td>8R</td>
+						</table>
+					</div>
+					<div class = "status">
+						<div class = "score">0</div>
+						<div class = "color"></div>
+						<table class = "pointGauge">
+							<td>99 ~ 80</td>
+							<td>79 ~ 60</td>
+							<td>59 ~ 40</td>
+							<td>39 ~ 20</td>
+							<td>19 ~ 0</td>
+						</table>
+					</div>
+				</div>
+
+				<div class = "notiMessage">안내메세지</div>
+
+				<div class ="thisPlayerZone">
+					<div class = "status">
+						<div class = "score">0</div>
+						<div class = " color"></div>
+						<table class = "pointGauge">
+							<td>99 ~ 80</td>
+							<td>79 ~ 60</td>
+							<td>59 ~ 40</td>
+							<td>39 ~ 20</td>
+							<td>19 ~ 0</td>
+						</table>
+					</div>
+					<div class = "inputNumField">
+						<input type='text' class='inputText'>
+						<button class='sendButton'>SEND</button>
+					</div>
+					<div class = "assistance">
+						<div class = "nickname">YEAH</div>
+						<table class = "BNWbyRound">
+							<td>1R</td>
+							<td>2R</td>
+							<td>3R</td>
+							<td>4R</td>
+							<td>5R</td>
+							<td>6R</td>
+							<td>7R</td>
+							<td>8R</td>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- right of main end -->
+		</div>
+		<!-- main end -->
+	</div>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="/main.js"></script>
+	<script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
+	<script type="text/javascript" src="./thistimerindex.js"></script>
+</body>
+</html>

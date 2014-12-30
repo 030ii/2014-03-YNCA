@@ -1,0 +1,239 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+
+body {
+	background-size: 100%;
+	font-family: 'Nanum Brush Script', serif;
+	overflow: auto;
+	font-size: 18px;
+}
+
+#wrapper {
+	width: 960px;
+	height: 680px;
+	margin: 0 auto;
+}
+
+.top {
+	width: 100%;
+	height: 50px;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: relative;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+}
+
+.top div {
+	padding-left: 20px;
+	padding-top: 10px;
+	font-size: 30px;
+	color:#fff;
+}
+
+.top button {
+	position: absolute;
+	top: 12px;
+	right: 20px;
+	font-size:20px;
+}
+
+.left {
+	float: left;
+	width: 212px;
+	margin-top: 10px;
+}
+
+.playerInfo {
+	position: relative;
+	height: 90px;
+	background-color: blue;
+	padding-left: 20px;
+	padding-top: 20px;
+	margin-bottom: 15px;
+	line-height: 2.3em;
+	background-color: #eee;
+	1background-color: rgba(255, 255, 255, 0.3);
+}
+
+.playerNickname {
+	color:#000;
+	font-size: 2em;
+}
+
+.playerLevel {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+.chatting {
+	width: 192px;
+	height: 370px;
+	padding-top: 20px;
+	padding-left: 20px;
+	margin-bottom: 15px;
+	background-color: #eee;
+	position: relative;
+	opacity: 0.5;
+}
+
+.under-the-chatting {
+	width: 192px;
+	position: absolute;
+	bottom: 10px;
+}
+
+.inputText {
+	height: 25px;
+	width: 120px;
+}
+
+.sendButton {
+	height: 31px;
+}
+
+.bottomLeftRadius {
+	border-bottom-left-radius: 7px;
+}
+
+.main {
+	float: left;
+	width: 738px;
+	height: 640px;
+	margin-left: 10px;
+	margin-top: 10px;
+	background-color: rgba(118,118,118,0.5);
+	color: #fff;
+	border-bottom-right-radius: 7px;
+}
+
+.leftOfMain {
+	width: 200px;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+.roundNum {
+	font-size: 3em;
+	margin-top: 20px;
+	margin-left: 40px;
+	font-weight: bold;
+}
+
+.possiblePointField {
+	position: absolute;
+	bottom: 20px;
+	width: 150px;
+	height: 150px;
+	margin-left: 20px;
+	background-color: #ea8cb4;
+	-moz-border-radius: 75px;
+	-webkit-border-radius: 75px;
+	border-radius: 75px;
+}
+
+.possiblePointText {
+	font-size: 1.5em;
+	margin-top: 30px;
+	text-align: center;
+}
+
+.possiblePoint {
+	font-size: 4em;
+	text-align: center;
+}
+
+.rightOfMain {
+	width: 528px;
+	height: 100%;
+	float: left;
+	position: relative;
+}
+
+.assistance {
+	float: right;
+	height: 80px;
+	margin-right: 10px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.nickname {
+	text-align: right;
+	font-size: 2em;
+}
+
+.BNWbyRound , td{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+td {
+	padding: 5px 5px;
+}
+
+.status {
+	margin-top: 20px;
+	float: right;
+	position: relative;
+	width: 500px;
+	height: 80px;
+}
+
+.score {
+	width: 50px;
+	height: 70px;
+	margin-top: 5px;
+	text-align: center;
+	font-size: 4em;
+	position: absolute;
+}
+
+.color {
+	width: 80px;
+	height: 80px;
+	left: 50px;
+	position: absolute;
+	margin-left: 20px;
+	background-color: white;
+}
+
+.pointGauge {
+	right: 10px;
+	position: absolute;
+	margin-top: 15px;
+	height: 50px;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.notiMessage {
+	position: relative;
+	float: left;
+	margin-top: 20px;
+	margin-left: 27px;
+	width: 400px;
+	height: 80px;
+	background-color: #8cbdea;
+}
+
+.thisPlayerZone{
+	clear: both;
+}
+
+.inputNumField{
+	float: left;
+	position: relative;
+	margin-top: 30px;
+	margin-left: 30px;
+}
+
+.thisPlayerZone .inputText{
+	height: 40px;
+	width: 180px;
+}
+
+.thisPlayerZone .sendButton{
+	width: 70px;
+	height: 40px;
+	box-sizing: content-box;
+}
