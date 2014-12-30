@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="vibrate.css">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<style>
+.inputNumField{
+    float: left;
+    position: relative;
+    margin-top: 130px;
+    margin-left: 30px;
+}
+
+.inputText {
+    height: 40px;
+    width: 180px;
+}
+
+.sendButton {
+    width: 70px;
+    height: 40px;
+    box-sizing: content-box;
+}
+/*   */
+
+
+</style>
+<body>
+<div class="inputNumField">
+    <div class="bubble-wrapper">
+        <div class="bubble"></div>
+    </div>
+    <input type="text" class="inputText">
+    <button class="sendButton">SEND</button>
+</div>
+<script>
+    function vibrate(el){
+        el.classList.add('shake');
+    }
+
+    function alertMsg(el, msg) {
+        setMessage(el, msg);
+        el.classList.add('visible');
+    }
+
+    function setMessage(el, msg) {
+        el.innerText = msg;
+    }
+
+    function checkInput(val) {
+        // server input 값을 전달
+
+        // input값에 대한 결과를 받음
+
+        // 결과값을 바탕으로 맞는지 틀린지 확인
+
+        return false;
+    }
+    var sendBtn = document.querySelector('.sendButton');
+    sendBtn.addEventListener('click', function(e){
+        var bubbleEl = document.querySelector('.bubble');
+        var val = inputEl.value;
+        var text = "잘못된 입력, 다시 입력하여 주세요";
+        if(!checkInput(val)) {
+            vibrate(inputEl);
+            alertMsg(bubbleEl, text);
+        }
+    });
+
+    var inputEl = document.querySelector('.inputText');
+    inputEl.addEventListener('webkitAnimationEnd', function(e){
+        this.classList.remove('shake');
+
+    }, false);
+
+    var bubbleEl = document.querySelector('.bubble');
+    bubbleEl.addEventListener('webkitTransitionEnd', function(e){
+        this.classList.remove('visible');
+    }, false);
+
+</script>
+</body>
+</html>
+<script>
