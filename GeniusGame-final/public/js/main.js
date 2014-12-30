@@ -202,6 +202,10 @@ socket.on('showRoundInfoByNotiModal', function (round, text) {
 	gc.stopCount();
 });
 
+socket.on('reduceVideoBlur', function (playerNum) {
+	gc.reduceVideoBlur(playerNum);
+});
+
 socket.on('proceedRound', function (roundInfo) {
 	setTimeout(function () {
 		gc.hideNotiModal();

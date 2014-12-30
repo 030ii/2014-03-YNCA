@@ -232,6 +232,7 @@ io.on('connection', function (socket) {
 			if(winner) {
 				io.to(winner.socketId).emit('showRoundInfoByNotiModal', round, '승리');
 				io.to(winner.otherPlayer.socketId).emit('showRoundInfoByNotiModal', round, '패배');
+				io.to(winner.otherPlayer.socketId).emit('reduceVideoBlur', winner.otherPlayer.num);
 			} else {
 				io.sockets.in(socket.room.roomName).emit('showRoundInfoByNotiModal', round, '비김');
 			}

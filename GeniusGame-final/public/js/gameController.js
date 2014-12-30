@@ -41,7 +41,7 @@ var	 gc = {
 			if(x == 0){
 				$('#progress').removeClass('seconds');
 
-				stopCountDown();
+				this.stopCount();
 			}
 
 			if(x == 15){
@@ -65,7 +65,7 @@ var	 gc = {
 			})
 
 			$('#progress strong').html(x);
-		},1000)
+		}.bind(this),1000)
 	},
 	stopCount : function () {
 		clearInterval(this.interval);
@@ -228,6 +228,33 @@ var	 gc = {
 		}
 		chatMsgListEl.innerHTML += inputString;
 		chatMsgEl.scrollTop = chatMsgEl.scrollHeight;
+	},
+	reduceBlurVideo: function (playerNum) {
+		if (document.querySelectorAll('video').length == 0) {
+			return;
+		}
+
+		var videoEl;
+		if (this.myNum == playerNum) {
+			videoEl = document.querySelectorAll('video')[1];
+		} else {
+			videoEl = document.querySelectorAll('video')[0];
+		}
+
+		if (videoEl.classList.length == 2) {
+			videoEl.classList.add('blur3');
+			return;
+		}
+
+		var blurClass = videoEl.classList[2];
+		var blurNum = blurClass.slice(-1);
+
+		if (blurNum >=1 ) {
+			videoEl.classList.remove(blurClass);
+			var newBlurClass = "blur" + (--blurNum);
+			videoEl.classList.add(newBlurClass);
+		}
+
 	},
 	connectToRoom : function (room) {
 		this.conference = RTC({
