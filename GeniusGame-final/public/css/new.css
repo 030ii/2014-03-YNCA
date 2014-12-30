@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@import url(http://fonts.googleapis.com/css?family=Karla);
 
 html, body {
   height: 100%;
@@ -6,7 +7,7 @@ html, body {
   padding: 0;
   margin: 0;
   font-size: 18px;
-  font-family: 'Nanum Brush Script', serif;
+  font-family: 'Karla', serif;
 }
 
 #full-screen-background-image {
@@ -99,13 +100,47 @@ html, body {
 	bottom: 10px;
 }
 
-.inputText {
-	height: 25px;
-	width: 120px;
+.inputText{
+	/*height: 25px;*/
+	background: none;
+	width: 125px;
+	font-family:'Ubuntu';
+	font-weight:300;
+	border:0;
+	border-bottom:2px solid black;
+	/*width:31%;
+	height:36px;*/
+	font-size:26px;
+	text-align: center;
+	/*margin-left:130px;*/
+}
+.inputText:focus{
+  outline:none;
+  box-shadow:none;
+  background:rgba(9,0,0,0.1);
 }
 
 .sendButton {
-	height: 31px;
+	background:#a0a0a0;
+	color:#fff;
+	float:right;
+	height: 28px;
+	margin-right: 10px;
+	margin-top : 5px;
+}
+
+#wrapper > div.main > div.rightOfMain > div.myZone > div.inputNumField > button {
+	height : 28px;
+	width : 50px;
+	margin-top : 12px;
+	margin-left: 9px;
+}
+
+#wrapper > div.main > div.rightOfMain > div.myZone > div.inputNumField > button{
+	font-size: 15px;
+}
+.bottomLeftRadius {
+	border-bottom-left-radius: 7px;
 }
 
 .main {
@@ -138,7 +173,7 @@ html, body {
 #roundNum {
 	font-size:3em;
 	margin-top: 20px;
-	margin-right: -5px;
+	margin-right: -200px;
 	font-weight: bold;
 }
 
@@ -193,6 +228,11 @@ html, body {
 
 td {
 	padding: 5px 7px;
+	/*font-size: 10px;*/
+}
+
+.pointGauge{
+	font-size: 15px;
 }
 
 .status {
@@ -342,7 +382,8 @@ td {
 }
 
 #inputPoint {
-	height: 45px;
+	height: 36px;
+	margin-top: 9px;
 }
 
 @-webkit-keyframes rotating {
