@@ -50,7 +50,8 @@
 			<div id="puff"></div>
 			<!-- left of main -->
 			<div class = "leftOfMain">
-				<div class = "roundNum" id ="flag">ROUND 1</div>
+				<div class = "roundText">ROUND&nbsp;</div>
+				<div id = "roundNum">1</div>
 				<div id='timer'>
 					<p id="progress" class="red"></p>
 				</div>
@@ -66,7 +67,7 @@
 				<div class = "urZone">
 					<div class = "assistance">
 						<div class = "nickname">CHANG</div>
-						<table class = "BNWbyRound">
+						<table class = "BNWbyRound" id="urBNWbyRound">
 							<td>1R</td>
 							<td>2R</td>
 							<td>3R</td>
@@ -79,7 +80,13 @@
 					</div>
 					<div class = "status">
 						<div class = "score" id="urScore">0</div>
-						<div class = "color" id = "urColor"></div>
+						<!-- <div class = "color" id = "urColor"></div> -->
+						<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+							<div class="flipper">
+								<div class="front"></div>
+								<div class="back" id="urColor"></div>
+							</div>
+						</div>
 						<table class = "pointGauge">
 							<td id = "urGauge5">99 ~ 80</td>
 							<td id = "urGauge4">79 ~ 60</td>
@@ -96,7 +103,13 @@
 					<div id="puff"></div>
 					<div class = "status">
 						<div class = "score" id="myScore">0</div>
-						<div class = "color" id ="myColor"></div>
+						<!-- <div class = "color" id ="myColor"></div> -->
+						<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+							<div class="flipper">
+								<div class="front"></div>
+								<div class="back" id="myColor"></div>
+							</div>
+						</div>
 						<table class = "pointGauge">
 							<td id = "myGauge5">99 ~ 80</td>
 							<td id = "myGauge4">79 ~ 60</td>
@@ -111,7 +124,7 @@
 					</div>
 					<div class = "assistance">
 						<div class = "nickname">YEAH</div>
-						<table class = "BNWbyRound">
+						<table class = "BNWbyRound" id="urBNWbyRound">
 							<td>1R</td>
 							<td>2R</td>
 							<td>3R</td>

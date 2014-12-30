@@ -119,10 +119,17 @@ body {
 	float: left;
 	position: relative;
 }
-.roundNum {
+.roundText {
+	float: left;
 	font-size: 3em;
 	margin-top: 20px;
-	margin-left: 40px;
+	margin-left: 30px;
+	font-weight: bold;
+}
+
+#roundNum {
+	font-size:3em;
+	margin-top: 20px;
 	font-weight: bold;
 }
 
@@ -196,15 +203,16 @@ td {
 	position: absolute;
 }
 
-.color {
+/*.color {
 	width: 80px;
 	height: 80px;
 	left: 50px;
 	position: absolute;
 	margin-left: 20px;
+	background-color: red;
 	background: url('hourglass.gif') 0 0;
 	background-size: 80px 80px;
-}
+}*/
 
 .pointGauge {
 	right: 10px;
