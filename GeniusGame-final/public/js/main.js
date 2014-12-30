@@ -203,7 +203,7 @@ socket.on('showRoundInfoByNotiModal', function (round, text) {
 });
 
 socket.on('reduceVideoBlur', function (playerNum) {
-	gc.reduceVideoBlur(playerNum);
+	gc.reduceBlurVideo(playerNum);
 });
 
 socket.on('proceedRound', function (roundInfo) {
@@ -235,7 +235,8 @@ socket.on('inputTimeout', function () {
 
 socket.on('gameOverWinner', function (playerName) {
 	gc.showNotiModal({
-		content : playerName+"<br><span class='bigFont'>승리!</span><br><br> 3초 후에 Reload 됩니다."
+		title : playerName,
+		content : "<span class='bigFont'>승리!</span><br><br> 3초 후에 Reload 됩니다."
 	});
 
 	setTimeout(function () {
@@ -245,7 +246,8 @@ socket.on('gameOverWinner', function (playerName) {
 
 socket.on('gameOverLoser', function (playerName) {
 	gc.showNotiModal({
-		content : playerName+"<br><span class='bigFont'>패배!</span><br><br> 3초 후에 Reload 됩니다."
+		title : playerName,
+		content : "<span class='bigFont'>패배!</span><br><br> 3초 후에 Reload 됩니다."
 	});
 
 	setTimeout(function () {

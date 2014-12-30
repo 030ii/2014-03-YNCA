@@ -129,6 +129,8 @@ var	 gc = {
 		for (var i = 0; i < length; i++) {
 			if (i < startingPoint) {
 				puffCell(pointRangeEl[i]);
+			} else {
+				pointRangeEl[i].style.display = 'table-cell';
 			}
 		};
 
@@ -148,6 +150,7 @@ var	 gc = {
 			};
 			animate();
 			setTimeout(function() {
+				elPuff.parentElement.style.display = 'none';
 				elPuff.parentElement.removeChild(elPuff);
 			}, frames * frameRate);
 		}
@@ -157,7 +160,6 @@ var	 gc = {
 			var elPuff = document.createElement('div');
 			elPuff.classList.add('puff');
 			elCell.appendChild(elPuff);
-			elCell.style.opacity = 0;
 			animatePuff(elPuff);
 		}
 	},
@@ -230,7 +232,7 @@ var	 gc = {
 		chatMsgEl.scrollTop = chatMsgEl.scrollHeight;
 	},
 	reduceBlurVideo: function (playerNum) {
-		if (document.querySelectorAll('video').length == 0) {
+		if (document.querySelectorAll('video').length < 2) {
 			return;
 		}
 
