@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
 
 body {
+	background-image : url('./background.jpg');
 	background-size: 100%;
 	font-family: 'Nanum Brush Script', serif;
 	overflow: auto;
@@ -17,7 +18,7 @@ body {
 .top {
 	width: 100%;
 	height: 50px;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(50, 50, 60, 0.6);
 	position: relative;
 	border-top-left-radius: 7px;
 	border-top-right-radius: 7px;
@@ -30,11 +31,14 @@ body {
 	color:#fff;
 }
 
-.top button {
+.exit {
 	position: absolute;
-	top: 12px;
-	right: 20px;
-	font-size:20px;
+	top: 8px;
+	right: 10px;
+	background: url('exit.png') 0 0;
+	background-size: 100% 100%;
+	width: 15px;
+	height: 25px;
 }
 
 .left {
@@ -52,7 +56,7 @@ body {
 	margin-bottom: 15px;
 	line-height: 2.3em;
 	background-color: #eee;
-	1background-color: rgba(255, 255, 255, 0.3);
+	/*background-color: rgba(255, 255, 255, 0.3);*/
 }
 
 .playerNickname {
@@ -72,9 +76,9 @@ body {
 	padding-top: 20px;
 	padding-left: 20px;
 	margin-bottom: 15px;
-	background-color: #eee;
+	color: #fff;
+	background-color: rgba(255,255,255,0.2);
 	position: relative;
-	opacity: 0.5;
 }
 
 .under-the-chatting {
@@ -102,7 +106,8 @@ body {
 	height: 640px;
 	margin-left: 10px;
 	margin-top: 10px;
-	background-color: rgba(118,118,118,0.5);
+	background-size: 100% 100%;
+	background-color: rgba(118,118,118,0);
 	color: #fff;
 	border-bottom-right-radius: 7px;
 	position: relative;
@@ -164,18 +169,14 @@ body {
 	font-size: 2em;
 }
 
-.BNWbyRound , td{
-	border: 1px solid black;
+.BNWbyRound {
+	color: #808080;
+	background-color: #ffd541;
 	border-collapse: collapse;
 }
 
-.BNWwrapper {
-	position: relative;
-}
-
 td {
-	background-color: #ED145B;
-	padding: 5px 5px;
+	padding: 5px 7px;
 }
 
 .status {
@@ -201,7 +202,8 @@ td {
 	left: 50px;
 	position: absolute;
 	margin-left: 20px;
-	background-color: white;
+	background: url('hourglass.gif') 0 0;
+	background-size: 80px 80px;
 }
 
 .pointGauge {
@@ -209,18 +211,46 @@ td {
 	position: absolute;
 	margin-top: 15px;
 	height: 50px;
-	border: 1px solid black;
+	border-style: hidden;
 	border-collapse: collapse;
 }
 
-.notiMessage {
+#urGauge5 {
+	background-color: #8ad5f0;
+}#urGauge4 {
+	background-color: #50c0e9;
+}#urGauge3 {
+	background-color: #2cb1e1;
+}#urGauge2 {
+	background-color: #16a5d7;
+}#urGauge1 {
+	background-color: #0099cc;
+}
+
+#myGauge5 {
+	background-color: #89c5f0;
+}#myGauge4 {
+	background-color: #4fa8e8;
+}#myGauge3 {
+	background-color: #2d96e0;
+}#myGauge2 {
+	background-color: #1586d6;
+}#myGauge1 {
+	background-color: #0077cc;
+}
+
+#notiMessage {
 	position: relative;
 	float: left;
 	margin-top: 20px;
-	margin-left: 27px;
-	width: 400px;
+	width: 350px;
 	height: 80px;
-	background-color: #8cbdea;
+	color: #222;
+	font-size: 1.5em;
+	text-align: center;
+	line-height: 80px;
+	background-image: url("notiMessage.png");
+	background-size: 100% 100%;
 }
 
 .myZone{
