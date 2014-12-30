@@ -50,6 +50,14 @@
         el.innerText = msg;
     }
 
+    // API
+    function wrongInput(inputEl, msg) {
+        var bubbleEl = document.querySelector('.bubble');
+        vibrate(inputEl);
+        alertMsg(bubbleEl, msg);
+    }
+
+/*.....................................................................*/
     function checkInput(val) {
         // server input 값을 전달
 
@@ -59,6 +67,7 @@
 
         return false;
     }
+
     var sendBtn = document.querySelector('.sendButton');
     sendBtn.addEventListener('click', function(e){
         var bubbleEl = document.querySelector('.bubble');
