@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="vibrate.css">
+    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+<div id="outerBox" >
+    <div id="box">
+        <input type="number" name="inputNum" id="inputNum">
+            <div id="bubble-wrapper">
+                <div id="bubble"></div>
+            </div>
+        </input>
+        <br/>
+        <input type="submit" name="send" id="send" value="Send"/>
+    </div>
+    
+  </div>
+<script>
+    function vibrate(inputEl){
+        //debugger;
+        inputEl.classList.add('wrong');
+        bubble.classList.add('visible');
+    }
+
+    function checkInput(val) {
+        // server input 값을 전달
+
+        // input값에 대한 결과를 받음
+
+        // 결과값을 바탕으로 맞는지 틀린지 확인
+
+        return false;
+    }
+    var sendBtn = document.querySelector('#send');
+    var inputEl = document.querySelector('#inputNum');
+    var bubble = document.querySelector('#bubble');
+    
+    sendBtn.addEventListener('click', function(e){
+        var val = inputEl.value;
+        if(!checkInput(val)) {
+            vibrate(inputEl);
+        }
+    });
+
+    inputEl.addEventListener('webkitAnimationEnd', function(e){
+        this.classList.remove('wrong');
+
+    }, false);
+
+    bubble.addEventListener('webkitTransitionEnd', function(e){
+        this.classList.remove('visible');
+
+    }, false);
+
+</script>
+</body>
+</html>
+<script>
