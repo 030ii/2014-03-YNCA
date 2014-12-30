@@ -50,8 +50,9 @@
 	backface-visibility: hidden;
 	width: 80px;
 	height: 80px;
-	background: url('../img/hourglass.gif') 0 0;
+	background: url('../img/giphy.gif') 0 0;
 	background-size: 80px 80px;
+	background-repeat: no-repeat;
 	position: absolute;
 }
 
